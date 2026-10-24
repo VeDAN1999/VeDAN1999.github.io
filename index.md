@@ -9,11 +9,13 @@ title: Daniel Baldwin
 
 <p class="lede">Applied mathematician. I work on stochastic processes and path integrals, in particular the complex saddles and Lefschetz thimbles that quietly govern real-valued rare events, and now on quantitative problems for clients at a boutique consultancy.</p>
 
-I hold a PhD in Applied Mathematics from the University of Leeds (Leeds Doctoral Scholarship), where I developed a Picard–Lefschetz framework for stochastic path integrals in the weak-noise limit, followed by a research fellowship. Before that: BSc and MMath in Mathematics at Leeds on a Top 10 Scholarship, with the HL Price Prize for my Master's thesis. I'm now a quant consultant at [d-fine](https://www.d-fine.com) in London, a boutique management consultancy that specialises in quantitative problems.
+I hold a PhD in Applied Mathematics from the University of Leeds (Leeds Doctoral Scholarship), where I developed a Picard–Lefschetz framework for stochastic path integrals in the weak-noise limit, followed by a research fellowship. Before that: BSc and MMath in Mathematics at Leeds, where I was awarded the Top 10 Scholarship and the HL Price Prize for the best Master's thesis. I'm now a quant consultant at [d-fine](https://www.d-fine.com) in London, a boutique management consultancy that specialises in quantitative problems.
 
 This site collects my [research](/research/), a few [projects](/projects/) with code, and [write-ups](/writing/) of puzzles and problems I find interesting. My interests run from complex analysis, stochastic processes, asymptotics and probability to PDEs, ODEs and applied mathematics in general: anything where a good calculation changes the picture.
 
-<blockquote class="epigraph">For a real stochastic process, with real time, real noise and real probabilities, the dominant path through the path integral is necessarily complex. The escape from a well turns around at a point that isn't on the real line, and if you ignore that, the answer comes out wrong by a factor that puzzled people for decades.</blockquote>
+<p class="eyebrow" style="margin-top:2.5rem">The punchline</p>
+
+<blockquote class="epigraph">For a real stochastic process, with real time, real noise and real probabilities, the dominant path through the path integral is necessarily complex. The step nobody had understood was the analytic continuation of the stochastic path integral itself, $D \to -D$. Once that is made sense of, the escape path turns around at a point off the real line, the divergent quasi-zero-mode integral converges on its thimble, and the error factor that had puzzled people for decades simply disappears.</blockquote>
 
 {% include complex-bounce.html id="home" controls="false" %}
 
