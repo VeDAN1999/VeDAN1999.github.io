@@ -13,9 +13,9 @@ I hold a PhD in Applied Mathematics from the University of Leeds (Leeds Doctoral
 
 This site collects my [research](/research/), a few [projects](/projects/) with code, and [write-ups](/writing/) of puzzles and problems I find interesting. My interests run from complex analysis, stochastic processes, asymptotics and probability to PDEs, ODEs and applied mathematics in general: anything where a good calculation changes the picture.
 
-<p class="eyebrow" style="margin-top:2.5rem">The punchline</p>
+<p class="eyebrow" style="margin-top:2.5rem">My PhD in one breath</p>
 
-<blockquote class="epigraph">For a real stochastic process, with real time, real noise and real probabilities, the dominant path through the path integral is necessarily complex. The step nobody had understood was the analytic continuation of the stochastic path integral itself, $D \to -D$. Once that is made sense of, the escape path turns around at a point off the real line, the divergent quasi-zero-mode integral converges on its thimble, and the error factor that had puzzled people for decades simply disappears.</blockquote>
+<blockquote class="epigraph">Take a perfectly real stochastic process: real time, real noise, real probabilities. The path that matters most lives in the complex plane. The missing step, which nobody had quite made sense of, was the analytic continuation of the stochastic path integral itself, $D \to -D$. Do that properly and the escape path turns around off the real line, the quasi-zero-mode integral that always diverged converges on its thimble, and a factor that had puzzled people for decades simply disappears. I still find this slightly outrageous, and I spent four years making sure it is true.</blockquote>
 
 {% include complex-bounce.html id="home" controls="false" %}
 
