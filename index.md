@@ -15,7 +15,7 @@ This site collects my [research](/research/), a few [projects](/projects/) with 
 
 <p class="eyebrow" style="margin-top:2.5rem">My PhD in one breath</p>
 
-<blockquote class="epigraph">Take a perfectly real stochastic process: real time, real noise, real probabilities. The path that matters most lives in the complex plane. The missing step, which nobody had quite made sense of, was the analytic continuation of the stochastic path integral itself, $D \to -D$. Do that properly and the escape path turns around off the real line, the quasi-zero-mode integral that always diverged converges on its thimble, and a factor that had puzzled people for decades simply disappears. I still find this slightly outrageous, and I spent four years making sure it is true.</blockquote>
+<blockquote class="epigraph">Take a perfectly real stochastic process, a particle diffusing in a well: real time, real noise, real force, real probabilities. Write it as a path integral. Beneath it sits a complex skeleton: the path that matters most lives in the complex plane! Itô's formulation produces such paths naturally, and with them the analytic continuation of the stochastic path integral, <span class="cb-math">D → −D</span>, finally makes sense. A quasi-zero-mode integral that was never conceptually understood is resolved simply by following the paths off the real axis. Finding something this beautiful made the PhD worth it.</blockquote>
 
 {% include complex-bounce.html id="home" controls="false" %}
 
