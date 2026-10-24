@@ -1,0 +1,28 @@
+title: Daniel Baldwin
+description: Applied mathematician and quant consultant. Stochastic path integrals, complex saddles, puzzles.
+url: "https://vedan1999.github.io"
+baseurl: ""
+author: Daniel Baldwin
+github: VeDAN1999
+
+markdown: kramdown
+kramdown:
+  math_engine: mathjax
+  input: GFM
+permalink: /writing/:year/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

@@ -1,0 +1,174 @@
+:root {
+  --bg: #fbfaf7;
+  --ink: #1c1b18;
+  --muted: #6b675e;
+  --rule: #e4e0d6;
+  --accent: #8a3b12;
+  --accent-soft: #f3e4da;
+  --code-bg: #f1eee7;
+  --serif: "Newsreader", Georgia, serif;
+  --sans: "Inter", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+  --measure: 42rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15140f;
+    --ink: #ece8df;
+    --muted: #a19b8d;
+    --rule: #2c2a23;
+    --accent: #e0885b;
+    --accent-soft: #2e2017;
+    --code-bg: #1f1d17;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 17px; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.site-header, .content, .site-footer {
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.site-name {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.site-header nav { display: flex; gap: 1.25rem; font-size: .95rem; }
+.site-header nav a { color: var(--muted); }
+.site-header nav a.active, .site-header nav a:hover { color: var(--ink); text-decoration: none; }
+
+.content { flex: 1; padding-bottom: 4rem; }
+
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: 2.4rem; margin: 0 0 1rem; }
+h2 { font-size: 1.5rem; margin: 2.5rem 0 .75rem; }
+h3 { font-size: 1.15rem; margin: 1.75rem 0 .5rem; }
+
+p { margin: 0 0 1.1rem; }
+
+.lede {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  line-height: 1.45;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  font-size: .8rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: .5rem;
+}
+
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+
+ul, ol { padding-left: 1.25rem; }
+li { margin-bottom: .35rem; }
+
+code, pre {
+  font-family: var(--mono);
+  font-size: .88em;
+}
+code { background: var(--code-bg); padding: .1em .35em; border-radius: 3px; }
+pre {
+  background: var(--code-bg);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+pre code { background: none; padding: 0; }
+
+blockquote {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+}
+
+img { max-width: 100%; height: auto; border-radius: 4px; }
+figure { margin: 1.5rem 0; }
+figcaption { font-size: .85rem; color: var(--muted); margin-top: .5rem; }
+
+table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 1rem 0 1.5rem; }
+th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 600; font-size: .85rem; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); }
+
+/* Entry lists: research, projects, writing */
+.entry { padding: 1.4rem 0; border-top: 1px solid var(--rule); }
+.entry:last-child { border-bottom: 1px solid var(--rule); }
+.entry h3 { margin: 0 0 .3rem; }
+.entry .meta { font-size: .85rem; color: var(--muted); margin-bottom: .5rem; }
+.entry p:last-child { margin-bottom: 0; }
+.entry .links { font-size: .9rem; }
+.entry .links a + a::before { content: "·"; color: var(--muted); margin: 0 .5rem; }
+
+.tag {
+  display: inline-block;
+  font-size: .75rem;
+  padding: .1em .55em;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  margin-left: .4rem;
+  vertical-align: middle;
+}
+
+.post-header { margin-bottom: 2rem; }
+.post-source { margin-top: 3rem; font-size: .9rem; color: var(--muted); }
+
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+  border-top: 1px solid var(--rule);
+  font-size: .85rem;
+  color: var(--muted);
+}
+
+@media (max-width: 600px) {
+  html { font-size: 16px; }
+  h1 { font-size: 2rem; }
+  .site-header { padding-top: 1.5rem; }
+}

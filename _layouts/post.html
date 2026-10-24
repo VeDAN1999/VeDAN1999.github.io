@@ -1,0 +1,15 @@
+---
+layout: default
+math: true
+---
+<article class="post">
+  <header class="post-header">
+    <p class="eyebrow">{% if page.series %}{{ page.series }} · {% endif %}{{ page.date | date: "%B %Y" }}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.summary %}<p class="lede">{{ page.summary }}</p>{% endif %}
+  </header>
+  {{ content }}
+  {% if page.source %}
+  <p class="post-source">Code: <a href="{{ page.source }}">{{ page.source | remove: 'https://github.com/' }}</a></p>
+  {% endif %}
+</article>
