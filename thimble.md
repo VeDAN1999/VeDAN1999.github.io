@@ -9,7 +9,9 @@ math: true
 
 # The peculiar error factor
 
-<p class="lede">For decades the path-integral escape rate came out wrong by a mysterious $\sqrt{2\pi}/e$. The reason is geometric: the contour was never on the real line. Scroll through how a steepest-descent curve becomes a Lefschetz thimble in function space, and how one cut and one shift make the integral exact.</p>
+<p class="lede">Itô calculus and complex paths looked like the answer straight away. Then a stubborn factor of √(2π)/e appeared and refused to leave.</p>
+
+It took months to see where it came from. When it finally fell, Steve and I had to laugh: Stirling's formula had been painted across his office window the whole time, in full view at every meeting, as if some intergalactic entity were watching us struggle with the answer standing right in front of us. The factor was Stirling's approximation sneaking in through a contour that was never the right one. Scroll through how a steepest-descent curve becomes a Lefschetz thimble in function space, and how one cut and one shift make the integral exact.
 
 {% include thimble-journey.html %}
 
