@@ -32,5 +32,6 @@ The path integral gives a third route to stochastic processes alongside the Lang
 
 ## Background
 
-- PhD, Applied Mathematics, University of Leeds (2021–2025), Leeds Doctoral Scholarship
-- MMath & BSc Mathematics, University of Leeds · HL Price Prize for Master's thesis
+- PhD, Applied Mathematics, University of Leeds (2021–2025) · Leeds Doctoral Scholarship
+- Research fellow, University of Leeds (six months, 2025–2026)
+- MMath & BSc Mathematics, University of Leeds · Top 10 Scholarship · HL Price Prize for Master's thesis
