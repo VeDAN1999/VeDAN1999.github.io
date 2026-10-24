@@ -7,11 +7,11 @@ title: Daniel Baldwin
 
 # Daniel Baldwin
 
-<p class="lede">I work on stochastic processes and path integrals — in particular the complex saddles and Lefschetz thimbles that quietly govern real-valued rare events — and I apply the same toolkit to quantitative problems in finance.</p>
+<p class="lede">Applied mathematician. I work on stochastic processes and path integrals — in particular the complex saddles and Lefschetz thimbles that quietly govern real-valued rare events — and now on quantitative problems for clients at a boutique consultancy.</p>
 
-I hold a PhD in Applied Mathematics from the University of Leeds, where I developed a Picard–Lefschetz framework for stochastic path integrals in the weak-noise limit, followed by a research fellowship. I'm now a quant consultant at [d-fine](https://www.d-fine.com) in London.
+I hold a PhD in Applied Mathematics from the University of Leeds (Leeds Doctoral Scholarship), where I developed a Picard–Lefschetz framework for stochastic path integrals in the weak-noise limit, followed by a research fellowship. Before that: BSc and MMath in Mathematics at Leeds on a Top 10 Scholarship, with the HL Price Prize for my Master's thesis. I'm now a quant consultant at [d-fine](https://www.d-fine.com) in London, a boutique management consultancy that specialises in quantitative problems.
 
-This site collects my [research](/research/), a few [projects](/projects/) with code, and [write-ups](/writing/) of puzzles and problems I find interesting — mostly complex analysis, asymptotics, and probability.
+This site collects my [research](/research/), a few [projects](/projects/) with code, and [write-ups](/writing/) of puzzles and problems I find interesting. My interests run from complex analysis, stochastic processes, asymptotics and probability to PDEs, ODEs and applied mathematics in general — anything where a good calculation changes the picture.
 
 {% include complex-bounce.html id="home" controls="false" %}
 
@@ -37,6 +37,14 @@ This site collects my [research](/research/), a few [projects](/projects/) with 
   <h3><a href="/projects/#lefschetz-thimble-plotter">Lefschetz Thimble Plotter</a></h3>
   <div class="meta">Mathematica · Picard–Lefschetz theory</div>
   <p>Trace thimbles and dual thimbles of 1D complex integrals by holomorphic gradient flow.</p>
+</div>
+
+## From academia to the real world
+
+<div class="entry">
+  <h3><a href="/academia-to-industry/">Notes on the transition</a></h3>
+  <div class="meta">Research fellow → quant consultant</div>
+  <p>What carries over from a PhD in path integrals to client work, what doesn't, and what I had to learn fast. An occasional, honest log of the move.</p>
 </div>
 
 <p style="margin-top:2rem">Find me on <a href="https://github.com/{{ site.github }}">GitHub</a>.</p>

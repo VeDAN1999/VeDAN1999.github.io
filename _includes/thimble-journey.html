@@ -2,6 +2,23 @@
   <div class="tj-stage">
     <canvas class="tj-canvas"></canvas>
     <div class="tj-overlay"><span class="tj-act"></span><span class="tj-title"></span></div>
+    <div class="tj-math" data-scene="0">
+      <div class="tj-m tj-mJ">$\mathcal{J}_\sigma$: $\operatorname{Im}S$ constant, $\operatorname{Re}S$ increasing</div>
+      <div class="tj-m tj-mK">$\mathcal{K}_\sigma$: steepest ascent</div>
+      <div class="tj-m tj-mdim">bright: $|e^{-S/4D}|$ large · dark: small</div>
+    </div>
+    <div class="tj-math" data-scene="1">
+      <div class="tj-m tj-mdim">$h = \operatorname{Re}\mathcal{S}/4D$ rises along every flow line; $\operatorname{Im}\mathcal{S}$ is constant</div>
+    </div>
+    <div class="tj-math" data-scene="3">
+      <div class="tj-m tj-mG">$\theta^* = \tfrac{1}{\omega}\log\tfrac{8a^3}{D} \pm \tfrac{i\pi}{\omega}$</div>
+      <div class="tj-m tj-mJ">$\mathcal{J}_{1,0} = \mathbb{R} \pm i\pi/\omega$</div>
+      <div class="tj-m tj-mdim">bright: $|e^{-\mathcal{V}_-/4D}|$ blows up (IA attraction) · dark: decays</div>
+    </div>
+    <div class="tj-math" data-scene="4">
+      <div class="tj-m tj-mJ">exact: $\displaystyle\int_{\mathcal{J}_1} e^{-\omega\theta}\,e^{-c\,e^{-\omega\theta}}\,d\theta = \frac{1}{\omega}\frac{D}{8a^3}\,\Gamma(1)$</div>
+      <div class="tj-m tj-mK">Gaussian about $\theta^*$: the same $\times\ \sqrt{2\pi}/e \approx 0.922$ (Stirling)</div>
+    </div>
   </div>
   <div class="tj-steps">
     <section class="tj-step" data-scene="0">
@@ -37,6 +54,11 @@
 .tj-overlay { position: absolute; left: 1rem; top: .8rem; display: flex; gap: .7rem; align-items: baseline; pointer-events: none; }
 .tj-act { font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; color: rgba(232,230,224,.55); }
 .tj-title { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--tj-axis); }
+.tj-math { position: absolute; left: 1rem; bottom: .7rem; display: flex; visibility: hidden; flex-direction: column; gap: .15rem; pointer-events: none; font-size: .9rem; }
+.tj-math.on { visibility: visible; }
+.tj-m { font-family: var(--serif); color: var(--tj-axis); }
+.tj-mJ { color: var(--tj-J); } .tj-mK { color: var(--tj-K); } .tj-mG { color: var(--tj-green); } .tj-mdim { color: rgba(232,230,224,.55); font-size: .8rem; font-style: italic; }
+.tj-math mjx-container { color: inherit; }
 .tj-steps { position: relative; z-index: 0; }
 .tj-step { min-height: 46vh; padding: 1.5rem 0 3rem; }
 .tj-step h2 { margin-top: 0; }
@@ -50,7 +72,7 @@
   const root = document.getElementById('tj'); if (!root) return;
   const canvas = root.querySelector('.tj-canvas'), stage = root.querySelector('.tj-stage');
   const actEl = root.querySelector('.tj-act'), titleEl = root.querySelector('.tj-title');
-  const steps = Array.from(root.querySelectorAll('.tj-step'));
+  const steps = Array.from(root.querySelectorAll('.tj-step')), mathEls = Array.from(root.querySelectorAll('.tj-math'));
   const css = getComputedStyle(root), C = n => css.getPropertyValue(n).trim();
   const col = { axis: C('--tj-axis'), dim: C('--tj-dim'), J: C('--tj-J'), K: C('--tj-K'), hot: C('--tj-hot'), cold: C('--tj-cold'), green: C('--tj-green'), sheet: C('--tj-sheet'), sheetline: C('--tj-sheetline') };
   const titles = ['Steepest descent in one variable', 'The thimble as a manifold of paths', 'Slicing along the quasi-zero mode', 'The θ-plane: contour off the real line', 'An exact one-dimensional integral'];
@@ -146,9 +168,8 @@
     // saddle
     g.fillStyle = col.axis; g.beginPath(); g.arc(X(zsig[0]), Y(zsig[1]), 4, 0, 2*Math.PI); g.fill();
     text(g, 'z', X(zsig[0]) - 10, Y(zsig[1]) + 16, col.axis, 'right', 15); text(g, 'σ', X(zsig[0]) - 2, Y(zsig[1]) + 20, col.axis, 'right', 10);
-    if (kJ > .6) { const q = act1.J[Math.floor(act1.J.length*0.85)]; text(g, '𝒥σ  thimble: Im S const, Re S ↑', X(q[0]) + 10, Y(q[1]), col.J, 'left', 14); }
-    if (kK > .6) { const q = act1.K[Math.floor(act1.K.length*0.1)]; text(g, '𝒦σ  dual thimble', X(q[0]) - 10, Y(q[1]) , col.K, 'right', 14); }
-    text(g, 'bright: |e^{−S/4D}| large   ·   dark: small', w - 14, h - 14, col.dim, 'right', 12);
+    if (kJ > .6) { const q = act1.J[Math.floor(act1.J.length*0.85)]; text(g, 'thimble', X(q[0]) + 10, Y(q[1]), col.J, 'left', 14); }
+    if (kK > .6) { const q = act1.K[Math.floor(act1.K.length*0.1)]; text(g, 'dual thimble', X(q[0]) - 10, Y(q[1]) , col.K, 'right', 14); }
   }
 
   // ---------- ACT 2 & 3: the sheet in function space (stylised), then the cut
@@ -216,7 +237,6 @@
       text(g, 'QZM direction θ', qU1[0] - 6, qU1[1] - 14, col.J, 'right', 14);
       text(g, 'Gaussian modes (steep)', qV1[0] + 8, qV1[1], col.sheetline, 'left', 13);
       arrow(g, q0[0] - 70, q0[1] + 30, q0[0] - 150, q0[1] + 30, col.green, 1.4); text(g, 'EZM: t_c (exactly flat, ∫ dt_c over ℝ)', q0[0] - 70, q0[1] + 48, col.green, 'right', 13);
-      text(g, 'h = Re 𝒮/4D rises along every flow line; Im 𝒮 is constant', w - 14, h - 14, col.dim, 'right', 12);
       g.restore();
     }
     if (cutA > 0) {   // cutting slab outline
@@ -271,7 +291,7 @@
     act4.J.forEach((Jc, i) => { const m = Math.floor(Jc.length/2), n = Math.floor(m*kJ); polyline(g, P(Jc.slice(m - n, m + n + 1)), col.J, i === 0 ? 2.6 : 1.4, i === 0 ? 1 : .5); });
     // critical points
     act4.crit.forEach((z, i) => { g.fillStyle = col.green; g.beginPath(); g.arc(X(z[0]), Y(z[1]), 4.5, 0, 2*Math.PI); g.fill(); text(g, i === 0 ? 'θ₁*' : 'θ₀*', X(z[0]) + 10, Y(z[1]) - 12, col.green, 'left', 14); });
-    text(g, 'Re θ* = (1/ω) log(8a³/D)', X(act4.crit[0][0]), Y(0) - 14, col.green, 'center', 12);
+    text(g, 'Re θ*', X(act4.crit[0][0]), Y(0) - 14, col.green, 'center', 12);
     g.strokeStyle = col.green; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(act4.crit[0][0]), Y(-.25)); g.lineTo(X(act4.crit[0][0]), Y(.25)); g.stroke(); g.setLineDash([]);
     // the contour: real axis lifting to J_1
     const lift = ease(seg(p, .55, .95));
@@ -279,13 +299,12 @@
     polyline(g, pts, col.axis, 2.4, 1); arrowsAlong(g, pts, col.axis, 20, 7);
     text(g, lift < .5 ? 'C_ℝ : the real contour (divergent as θ → −∞)' : 'C_ℝ ≃ 𝒥₁ = ℝ + iπ/ω  (n₁ = 1, n₀ = 0)', X(box4[0]) + 8, Y(lift*Math.PI) - 14, col.axis, 'left', 14);
     if (act4.cross && kK > .9) { g.strokeStyle = col.K; g.lineWidth = 1.5; g.beginPath(); g.arc(X(act4.cross[0]), Y(0), 6, 0, 2*Math.PI); g.stroke(); text(g, 'C_ℝ ∩ 𝒦₁ : one crossing', X(act4.cross[0]) + 10, Y(0) + 14, col.K, 'left', 12); }
-    text(g, 'bright: integrand blows up (IA attraction)   ·   dark: decays', w - 14, h - 14, col.dim, 'right', 12);
-    text(g, 'regulator ν → 0⁺ picks 𝒥₁; ν → 0⁻ would pick 𝒥₀', 14, h - 14, col.dim, 'left', 12);
+    text(g, 'regulator ν → 0⁺ picks 𝒥₁;  ν → 0⁻ would pick 𝒥₀', w - 14, 40, col.dim, 'right', 12);
   }
 
   // ---------- ACT 5: the integrand along J_1 vs the Gaussian about θ*
   function drawAct5(g, w, h, p) {
-    const x0 = 0.5, x1 = 8.5, pad = 46, X = x => pad + (x - x0)/(x1 - x0)*(w - 2*pad);
+    const x0 = 0.5, x1 = 8.5, pad = 64, X = x => pad + (x - x0)/(x1 - x0)*(w - 2*pad);
     const f = x => Math.exp(-(x - lnc) - Math.exp(-(x - lnc)));             // Gumbel: e^{-ω(θ-θ*)} e^{-e^{-ω(θ-θ*)}}, peak e^{-1}
     const gss = x => Math.exp(-1)*Math.exp(-(x - lnc)*(x - lnc)/2);
     const ymax = .45, Y = y => h - pad - y/ymax*(h - 2*pad);
@@ -298,9 +317,9 @@
     area(gss, col.K, .15*a2); curve(gss, col.K, 1.6, a2, [5, 5]);
     g.strokeStyle = col.green; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(lnc), Y(0)); g.lineTo(X(lnc), Y(f(lnc)) - 12); g.stroke(); g.setLineDash([]);
     text(g, 'θ*', X(lnc), Y(f(lnc)) - 22, col.green, 'center', 14);
-    if (a1 > .6) text(g, 'exact: e^{−ωθ} e^{−c e^{−ωθ}}  →  ∫ = (1/ω)(D/8a³) Γ(1)', X(x0) + 6, Y(ymax*.92), col.J, 'left', 15);
-    if (a2 > .6) text(g, 'Gaussian about θ*  →  × √(2π)/e ≈ 0.922  (Stirling)', X(x0) + 6, Y(ymax*.80), col.K, 'left', 15);
-    if (a2 > .9) text(g, 'The thimble removes the “peculiar error factor” exactly.', w/2, h - 14, col.axis, 'center', 14);
+    if (a1 > .6) text(g, 'exact (thimble)', X(x1) - 6, Y(ymax*.92), col.J, 'right', 15);
+    if (a2 > .6) text(g, 'Gaussian about θ*', X(x1) - 6, Y(ymax*.82), col.K, 'right', 15);
+    if (a2 > .9) text(g, 'The thimble removes the “peculiar error factor” exactly.', w/2, 44, col.axis, 'center', 14);
   }
 
   // ---------- scheduler
@@ -320,6 +339,7 @@
     const g = canvas.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
     g.fillStyle = '#000'; g.fillRect(0, 0, r.width, r.height);
     actEl.textContent = 'ACT ' + (scene + 1) + ' / 5'; titleEl.textContent = titles[scene];
+    mathEls.forEach(el => el.classList.toggle('on', +el.dataset.scene === scene));
     const w = r.width, h = r.height;
     if (scene === 0) drawAct1(g, w, h, prog);
     else if (scene === 1) drawAct2(g, w, h, prog);
