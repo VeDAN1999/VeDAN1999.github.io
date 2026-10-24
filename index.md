@@ -13,6 +13,10 @@ I hold a PhD in Applied Mathematics from the University of Leeds, where I develo
 
 This site collects my [research](/research/), a few [projects](/projects/) with code, and [write-ups](/writing/) of puzzles and problems I find interesting — mostly complex analysis, asymptotics, and probability.
 
+{% include complex-bounce.html id="home" controls="false" %}
+
+<p style="margin-top:-1rem;font-size:.9rem;color:var(--muted)">The <strong>stochastic complex bounce</strong> from my thesis: the escape path from a metastable well leaves the real line and turns just off the barrier. <a href="/complex-bounce/">Explore it with the noise strength under your control →</a></p>
+
 ## Selected
 
 <div class="entry">
