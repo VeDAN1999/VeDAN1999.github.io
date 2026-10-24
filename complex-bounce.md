@@ -35,4 +35,4 @@ Details, the closed-form solution and the resulting escape rates are in [the pap
 
 <p style="color:var(--muted);font-size:.9rem">The animation integrates the complex equation of motion $\ddot x = -2x(a^2-x^2) + 2D$ with RK4 from the turning point, using the energy of the saddle near the well; nothing is drawn from a fit or an approximation.</p>
 
-Next: [how the thimble through this saddle is built, cut along the quasi-zero mode, and integrated exactly →](/thimble/)
+Next: [the peculiar error factor — how the thimble through this saddle is built, cut along the quasi-zero mode, and integrated exactly →](/thimble/)

@@ -1,15 +1,15 @@
 ---
 layout: default
-title: From a curve to a manifold — the Lefschetz thimble of the stochastic path integral
+title: The peculiar error factor
 permalink: /thimble/
 math: true
 ---
 
 <p class="eyebrow">Interactive · scroll to advance</p>
 
-# From a curve to a manifold
+# The peculiar error factor
 
-<p class="lede">How steepest descent in one complex variable becomes a Lefschetz thimble in function space, and why cutting it along one direction and pushing a contour off the real line fixes the escape rate exactly.</p>
+<p class="lede">For half a century the path-integral escape rate came out wrong by a mysterious $\sqrt{2\pi}/e$. The reason is geometric: the contour was never on the real line. Scroll through how a steepest-descent curve becomes a Lefschetz thimble in function space, and how one cut and one shift make the integral exact.</p>
 
 {% include thimble-journey.html %}
 

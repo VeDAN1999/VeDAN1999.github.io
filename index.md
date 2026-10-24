@@ -13,11 +13,13 @@ I hold a PhD in Applied Mathematics from the University of Leeds (Leeds Doctoral
 
 This site collects my [research](/research/), a few [projects](/projects/) with code, and [write-ups](/writing/) of puzzles and problems I find interesting. My interests run from complex analysis, stochastic processes, asymptotics and probability to PDEs, ODEs and applied mathematics in general — anything where a good calculation changes the picture.
 
+<blockquote class="epigraph">For a real stochastic process — real time, real noise, real probabilities — the dominant path through the path integral is necessarily complex. The escape from a well turns around at a point that isn't on the real line, and if you ignore that, the answer comes out wrong by a factor that puzzled people for decades.</blockquote>
+
 {% include complex-bounce.html id="home" controls="false" %}
 
 <p style="margin-top:-1rem;font-size:.9rem;color:var(--muted)">The <strong>stochastic complex bounce</strong> from my thesis: the escape path from a metastable well leaves the real line and turns just off the barrier. <a href="/complex-bounce/">Explore it with the noise strength under your control →</a></p>
 
-<p><a class="button" href="/thimble/">From a curve to a manifold: the Lefschetz thimble, sliced and integrated →</a></p>
+<p><a class="button" href="/thimble/">The peculiar error factor: where √(2π)/e came from, and how a thimble removes it →</a></p>
 
 ## Selected
 
