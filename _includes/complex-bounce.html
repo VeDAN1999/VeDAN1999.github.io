@@ -13,12 +13,12 @@
 </div>
 
 <style>
-.cb { margin: 1.5rem 0 2rem; --cb-re: #f0905f; --cb-im: #5fc4d6; --cb-tilt: rgba(240, 144, 95, .16); --cb-glow: rgba(240, 144, 95, .55); }
-:root[data-theme="light"] .cb { --cb-re: #b5461a; --cb-im: #1f7a8c; --cb-tilt: rgba(181, 70, 26, .13); --cb-glow: rgba(181, 70, 26, .45); }
+.cb { margin: 1.5rem 0 2rem; --cb-re: #ffa160; --cb-im: #5fd6e8; --cb-tilt: rgba(255, 161, 96, .14); --cb-glow: rgba(255, 161, 96, .6); --cb-panel: #000; --cb-ink: #f2efe8; --cb-muted: #a8a49a; --cb-rule: #3a3833; }
+:root[data-theme="light"] .cb { --cb-re: #b5461a; --cb-im: #1f7a8c; --cb-tilt: rgba(181, 70, 26, .13); --cb-glow: rgba(181, 70, 26, .45); --cb-panel: var(--code-bg); --cb-ink: var(--ink); --cb-muted: var(--muted); --cb-rule: var(--rule); }
 .cb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
-.cb-panel { position: relative; background: var(--code-bg); border-radius: 10px; overflow: hidden; }
+.cb-panel { position: relative; background: var(--cb-panel); border-radius: 10px; overflow: hidden; }
 .cb-panel canvas { display: block; width: 100%; aspect-ratio: 1 / 1; }
-.cb-label { position: absolute; left: .7rem; top: .5rem; white-space: nowrap; font-size: .72rem; color: var(--muted); letter-spacing: .02em; pointer-events: none; }
+.cb-label { position: absolute; left: .7rem; top: .5rem; white-space: nowrap; font-size: .72rem; color: var(--cb-muted); letter-spacing: .02em; pointer-events: none; }
 .cb-math { font-family: var(--serif); font-style: italic; font-size: .98rem; }
 .cb-bar { display: flex; align-items: center; gap: .9rem; margin-top: .65rem; font-size: .8rem; color: var(--muted); flex-wrap: wrap; }
 .cb-readout { font-family: var(--mono); color: var(--ink); min-width: 6.5rem; }
@@ -90,7 +90,7 @@
   let col = {};
   function refreshColors() {
     const s = getComputedStyle(root), v = n => s.getPropertyValue(n).trim();
-    col = { ink: v('--ink'), muted: v('--muted'), rule: v('--rule'), re: v('--cb-re'), im: v('--cb-im'), tilt: v('--cb-tilt'), glow: v('--cb-glow') };
+    col = { ink: v('--cb-ink'), muted: v('--cb-muted'), rule: v('--cb-rule'), re: v('--cb-re'), im: v('--cb-im'), tilt: v('--cb-tilt'), glow: v('--cb-glow') };
   }
   function fit(c) {
     const r = c.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;

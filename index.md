@@ -15,7 +15,9 @@ This site collects my [research](/research/), a few [projects](/projects/) with 
 
 {% include complex-bounce.html id="home" controls="false" %}
 
-<p style="margin-top:-1rem;font-size:.9rem;color:var(--muted)">The <strong>stochastic complex bounce</strong> from my thesis: the escape path from a metastable well leaves the real line and turns just off the barrier. <a href="/complex-bounce/">Explore it with the noise strength under your control →</a> Then follow the idea into function space: <a href="/thimble/">from a steepest-descent curve to a Lefschetz thimble, sliced and flattened →</a></p>
+<p style="margin-top:-1rem;font-size:.9rem;color:var(--muted)">The <strong>stochastic complex bounce</strong> from my thesis: the escape path from a metastable well leaves the real line and turns just off the barrier. <a href="/complex-bounce/">Explore it with the noise strength under your control →</a></p>
+
+<p><a class="button" href="/thimble/">From a curve to a manifold: the Lefschetz thimble, sliced and integrated →</a></p>
 
 ## Selected
 

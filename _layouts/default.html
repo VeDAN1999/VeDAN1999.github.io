@@ -10,12 +10,25 @@
   <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
-  {% if page.math or page.layout == 'post' %}
   <script>
-    MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] } };
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      startup: {
+        pageReady: function () {
+          // kramdown emits <script type="math/tex"> for $$…$$; turn those back into TeX delimiters for MathJax 3
+          document.querySelectorAll('script[type^="math/tex"]').forEach(function (el) {
+            var display = /mode=display/.test(el.type), tex = el.textContent;
+            var span = document.createElement(display ? 'div' : 'span');
+            span.textContent = display ? '\\[' + tex + '\\]' : '\\(' + tex + '\\)';
+            el.parentNode.replaceChild(span, el);
+          });
+          return MathJax.startup.defaultPageReady();
+        }
+      }
+    };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-  {% endif %}
 </head>
 <body>
   <header class="site-header">
@@ -24,6 +37,7 @@
       <a href="{{ '/research/' | relative_url }}" {% if page.url contains '/research' %}class="active"{% endif %}>Research</a>
       <a href="{{ '/projects/' | relative_url }}" {% if page.url contains '/projects' %}class="active"{% endif %}>Projects</a>
       <a href="{{ '/writing/' | relative_url }}" {% if page.url contains '/writing' %}class="active"{% endif %}>Writing</a>
+      <a href="{{ '/thimble/' | relative_url }}" {% if page.url contains '/thimble' %}class="active"{% endif %}>Thimble</a>
       <a href="https://github.com/{{ site.github }}">GitHub</a>
       <button class="theme-toggle" type="button" aria-label="Toggle light mode" title="Toggle light/dark">◐</button>
     </nav>
