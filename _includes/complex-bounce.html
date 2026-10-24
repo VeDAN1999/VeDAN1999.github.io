@@ -13,8 +13,8 @@
 </div>
 
 <style>
-.cb { margin: 1.5rem 0 2rem; --cb-re: #b5461a; --cb-im: #1f7a8c; --cb-tilt: rgba(181, 70, 26, .13); --cb-glow: rgba(181, 70, 26, .45); }
-@media (prefers-color-scheme: dark) { .cb { --cb-re: #f0905f; --cb-im: #5fc4d6; --cb-tilt: rgba(240, 144, 95, .16); --cb-glow: rgba(240, 144, 95, .55); } }
+.cb { margin: 1.5rem 0 2rem; --cb-re: #f0905f; --cb-im: #5fc4d6; --cb-tilt: rgba(240, 144, 95, .16); --cb-glow: rgba(240, 144, 95, .55); }
+:root[data-theme="light"] .cb { --cb-re: #b5461a; --cb-im: #1f7a8c; --cb-tilt: rgba(181, 70, 26, .13); --cb-glow: rgba(181, 70, 26, .45); }
 .cb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
 .cb-panel { position: relative; background: var(--code-bg); border-radius: 10px; overflow: hidden; }
 .cb-panel canvas { display: block; width: 100%; aspect-ratio: 1 / 1; }
@@ -215,7 +215,7 @@
   playBtn.addEventListener('click', () => { playing = !playing; playBtn.textContent = playing ? '❚❚' : '▶'; playBtn.setAttribute('aria-label', playing ? 'Pause' : 'Play'); });
   let visible = true;
   if ('IntersectionObserver' in window) new IntersectionObserver(e => { visible = e[0].isIntersecting; }, { threshold: .05 }).observe(root);
-  const mq = window.matchMedia('(prefers-color-scheme: dark)'); if (mq.addEventListener) mq.addEventListener('change', refreshColors);
+  new MutationObserver(refreshColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   refreshColors(); setD(s);
   function frame(now) {
     requestAnimationFrame(frame);
