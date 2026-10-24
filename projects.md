@@ -27,8 +27,8 @@ math: true
     <img src="/assets/img/thimbles_example.png" alt="Lefschetz thimbles and dual thimbles in the complex plane for a polynomial action">
     <figcaption>Thimbles (steepest descent) and dual thimbles (steepest ascent) emanating from the saddles of a polynomial action $W(z)$.</figcaption>
   </figure>
-  <p>Picard–Lefschetz theory rewrites an oscillatory or divergent integral $\int e^{-W(z)/\hbar}\,dz$ as a sum over thimbles on which the integrand is well behaved. This visualiser finds the saddles of a user-supplied $W$, integrates the upward and downward flow from each, and draws the resulting geometry — with a speed-normalised flow option that keeps high-degree potentials from blowing up numerically.</p>
+  <p>Picard–Lefschetz theory rewrites an oscillatory or divergent integral $\int e^{-W(z)/\hbar}\,dz$ as a sum over thimbles on which the integrand is well behaved. This visualiser finds the saddles of a user-supplied $W$, integrates the upward and downward flow from each, and draws the resulting geometry, with a speed-normalised flow option that keeps high-degree potentials from blowing up numerically.</p>
   <div class="links"><a href="https://github.com/VeDAN1999/lefschetz-thimble-plotter">Code</a><a href="https://github.com/VeDAN1999/lefschetz-thimble-plotter/blob/main/docs/maths.md">Maths notes</a></div>
 </div>
 
-<p style="margin-top:2rem;color:var(--muted)">More to come — see <a href="/writing/">Writing</a> for puzzle solutions and shorter experiments.</p>
+<p style="margin-top:2rem;color:var(--muted)">More to come: see <a href="/writing/">Writing</a> for puzzle solutions and shorter experiments.</p>

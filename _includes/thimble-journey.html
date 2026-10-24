@@ -23,11 +23,11 @@
   <div class="tj-steps">
     <section class="tj-step" data-scene="0">
       <h2>1 · A thimble is a curve through a point</h2>
-      <p>Start with one complex variable. To estimate $\int e^{-S(z)/4D}\,dz$ for small $D$, deform the contour so that it passes through a saddle $z_\sigma$ of $S$ along the path of <em>steepest descent</em>: the curve on which $\operatorname{Im} S$ is constant and $\operatorname{Re} S$ grows as fast as possible away from the saddle. That curve is the Lefschetz thimble $\mathcal{J}_\sigma$. Its mirror image — the curve of steepest <em>ascent</em> — is the dual thimble $\mathcal{K}_\sigma$. The original contour equals $\sum_\sigma n_\sigma \mathcal{J}_\sigma$, and $n_\sigma$ simply counts how many times it crosses $\mathcal{K}_\sigma$.</p>
+      <p>Start with one complex variable. To estimate $\int e^{-S(z)/4D}\,dz$ for small $D$, deform the contour so that it passes through a saddle $z_\sigma$ of $S$ along the path of <em>steepest descent</em>, the curve on which $\operatorname{Im} S$ is constant and $\operatorname{Re} S$ grows as fast as possible away from the saddle. That curve is the Lefschetz thimble $\mathcal{J}_\sigma$. Its mirror image, the curve of steepest <em>ascent</em>, is the dual thimble $\mathcal{K}_\sigma$. The original contour equals $\sum_\sigma n_\sigma \mathcal{J}_\sigma$, and $n_\sigma$ simply counts how many times it crosses $\mathcal{K}_\sigma$.</p>
     </section>
     <section class="tj-step" data-scene="1">
       <h2>2 · In function space, a thimble is a manifold through a path</h2>
-      <p>Now the integral is over paths $x(t)$ and the saddle $z_\sigma$ is itself a path — the stochastic complex bounce. The thimble is no longer a curve but a manifold: the set of all paths that flow down onto the bounce under the gradient flow of $h = \operatorname{Re}\mathcal{S}/4D$, with $\operatorname{Im}\mathcal{S}$ constant along every flow line. Near the bounce it splits into three kinds of direction: an exact zero mode (time translation $t_c$, perfectly flat), the quasi-zero mode $\theta$ (the instanton–anti-instanton separation, <em>almost</em> flat), and the stable Gaussian modes (steep).</p>
+      <p>Now the integral is over paths $x(t)$ and the saddle $z_\sigma$ is itself a path: the stochastic complex bounce. The thimble is no longer a curve but a manifold: the set of all paths that flow down onto the bounce under the gradient flow of $h = \operatorname{Re}\mathcal{S}/4D$, with $\operatorname{Im}\mathcal{S}$ constant along every flow line. Near the bounce it splits into three kinds of direction: an exact zero mode (time translation $t_c$, perfectly flat), the quasi-zero mode $\theta$ (the instanton–anti-instanton separation, <em>almost</em> flat), and the stable Gaussian modes (steep).</p>
     </section>
     <section class="tj-step" data-scene="2">
       <h2>3 · Cut it along the quasi-zero mode</h2>
@@ -42,7 +42,7 @@
       <h2>5 · The integral is now exact</h2>
       <p>With $\xi = e^{-\omega\theta}$ the shifted contour maps onto the positive real $\xi$-axis and the integrand becomes a pure exponential:</p>
       <p>$$I_{\mathrm{QZM}} = \frac{e^{\pm i\pi}}{\omega}\int_0^\infty d\xi\, e^{-(8a^3/D)\,\xi} = \frac{e^{\pm i\pi}}{\omega}\Big(\frac{D}{8a^3}\Big)\,\Gamma(1).$$</p>
-      <p>The naive Gaussian around the same critical point gives the same answer multiplied by $\sqrt{2\pi}/e$ — the "peculiar error factor" of the older literature is nothing but Stirling's approximation to $\Gamma(1)$, sneaking in from a contour that was never the right one. The thimble removes it exactly, and Kramers' prefactor comes out correct.</p>
+      <p>The naive Gaussian around the same critical point gives the same answer multiplied by $\sqrt{2\pi}/e$. The "peculiar error factor" of the older literature is nothing but Stirling's approximation to $\Gamma(1)$, sneaking in from a contour that was never the right one. The thimble removes it exactly, and Kramers' prefactor comes out correct.</p>
     </section>
   </div>
 </div>
@@ -56,6 +56,7 @@
 .tj-title { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--tj-axis); }
 .tj-math { position: absolute; left: 1rem; bottom: .7rem; display: flex; visibility: hidden; flex-direction: column; gap: .15rem; pointer-events: none; font-size: .9rem; }
 .tj-math.on { visibility: visible; }
+.tj-math[data-scene="4"] { bottom: auto; top: 2.6rem; }
 .tj-m { font-family: var(--serif); color: var(--tj-axis); }
 .tj-mJ { color: var(--tj-J); } .tj-mK { color: var(--tj-K); } .tj-mG { color: var(--tj-green); } .tj-mdim { color: rgba(232,230,224,.55); font-size: .8rem; font-style: italic; }
 .tj-math mjx-container { color: inherit; }
@@ -307,7 +308,7 @@
     const x0 = 0.5, x1 = 8.5, pad = 64, X = x => pad + (x - x0)/(x1 - x0)*(w - 2*pad);
     const f = x => Math.exp(-(x - lnc) - Math.exp(-(x - lnc)));             // Gumbel: e^{-ω(θ-θ*)} e^{-e^{-ω(θ-θ*)}}, peak e^{-1}
     const gss = x => Math.exp(-1)*Math.exp(-(x - lnc)*(x - lnc)/2);
-    const ymax = .45, Y = y => h - pad - y/ymax*(h - 2*pad);
+    const ymax = .45, Y = y => h - pad - y/ymax*(h - 2*pad - 70);
     g.strokeStyle = col.dim; g.lineWidth = 1; g.beginPath(); g.moveTo(X(x0), Y(0)); g.lineTo(X(x1), Y(0)); g.stroke();
     text(g, 'Re θ  (along 𝒥₁)', X(x1) - 4, Y(0) + 14, col.dim, 'right', 13);
     const a1 = seg(p, 0, .4), a2 = seg(p, .35, .8);
@@ -317,9 +318,9 @@
     area(gss, col.K, .15*a2); curve(gss, col.K, 1.6, a2, [5, 5]);
     g.strokeStyle = col.green; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(lnc), Y(0)); g.lineTo(X(lnc), Y(f(lnc)) - 12); g.stroke(); g.setLineDash([]);
     text(g, 'θ*', X(lnc), Y(f(lnc)) - 22, col.green, 'center', 14);
-    if (a1 > .6) text(g, 'exact (thimble)', X(x1) - 6, Y(ymax*.92), col.J, 'right', 15);
-    if (a2 > .6) text(g, 'Gaussian about θ*', X(x1) - 6, Y(ymax*.82), col.K, 'right', 15);
-    if (a2 > .9) text(g, 'The thimble removes the “peculiar error factor” exactly.', w/2, 44, col.axis, 'center', 14);
+    if (a1 > .6) text(g, 'exact (thimble)', X(x1) - 6, Y(ymax*.55), col.J, 'right', 15);
+    if (a2 > .6) text(g, 'Gaussian about θ*', X(x1) - 6, Y(ymax*.45), col.K, 'right', 15);
+    if (a2 > .9) text(g, 'The thimble removes the “peculiar error factor” exactly.', w/2, h - 14, col.axis, 'center', 14);
   }
 
   // ---------- scheduler
