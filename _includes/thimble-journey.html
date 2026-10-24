@@ -1,0 +1,334 @@
+<div class="tj" id="tj">
+  <div class="tj-stage">
+    <canvas class="tj-canvas"></canvas>
+    <div class="tj-overlay"><span class="tj-act"></span><span class="tj-title"></span></div>
+  </div>
+  <div class="tj-steps">
+    <section class="tj-step" data-scene="0">
+      <h2>1 · A thimble is a curve through a point</h2>
+      <p>Start with one complex variable. To estimate $\int e^{-S(z)/4D}\,dz$ for small $D$, deform the contour so that it passes through a saddle $z_\sigma$ of $S$ along the path of <em>steepest descent</em>: the curve on which $\operatorname{Im} S$ is constant and $\operatorname{Re} S$ grows as fast as possible away from the saddle. That curve is the Lefschetz thimble $\mathcal{J}_\sigma$. Its mirror image — the curve of steepest <em>ascent</em> — is the dual thimble $\mathcal{K}_\sigma$. The original contour equals $\sum_\sigma n_\sigma \mathcal{J}_\sigma$, and $n_\sigma$ simply counts how many times it crosses $\mathcal{K}_\sigma$.</p>
+    </section>
+    <section class="tj-step" data-scene="1">
+      <h2>2 · In function space, a thimble is a manifold through a path</h2>
+      <p>Now the integral is over paths $x(t)$ and the saddle $z_\sigma$ is itself a path — the stochastic complex bounce. The thimble is no longer a curve but a manifold: the set of all paths that flow down onto the bounce under the gradient flow of $h = \operatorname{Re}\mathcal{S}/4D$, with $\operatorname{Im}\mathcal{S}$ constant along every flow line. Near the bounce it splits into three kinds of direction: an exact zero mode (time translation $t_c$, perfectly flat), the quasi-zero mode $\theta$ (the instanton–anti-instanton separation, <em>almost</em> flat), and the stable Gaussian modes (steep).</p>
+    </section>
+    <section class="tj-step" data-scene="2">
+      <h2>3 · Cut it along the quasi-zero mode</h2>
+      <p>The Gaussian directions are harmless: integrate them on their real cycles and they give a determinant. The exact zero mode gives the time $t$. Everything subtle lives in a single direction, so cut the manifold along the $\theta$ line, keep that one-dimensional sheet, and flatten it out. What remains is an ordinary contour integral in the complex $\theta$-plane,</p>
+      <p>$$I_{\mathrm{QZM}} = \int_{\mathcal{J}_\sigma} d\theta\, \exp\!\Big(-\frac{\mathcal{V}_-(\theta)}{4D}\Big), \qquad \frac{\mathcal{V}_-(\theta)}{4D} = \omega\theta - \frac{8a^3}{D}\,e^{-\omega\theta}.$$</p>
+    </section>
+    <section class="tj-step" data-scene="3">
+      <h2>4 · Push the contour off the real line</h2>
+      <p>On the real $\theta$-axis the integrand is $\exp(+\tfrac{8a^3}{D}e^{-\omega\theta})$: the instanton and anti-instanton attract, and the integral diverges as $\theta \to -\infty$ (the bright region). The critical points sit at $\theta^* = \tfrac{1}{\omega}\log\tfrac{8a^3}{D} \pm i\pi/\omega$, and the steepest-descent contours through them are the horizontal lines $\mathcal{J}_\sigma = \mathbb{R} \pm i\pi/\omega$. A small regulator $\nu$ decides which dual thimble the real axis crosses, so $(n_0, n_1) = (0,1)$ or $(1,0)$: exactly one of the two shifted lines contributes, and the sign $e^{\pm i\pi}$ is the geometric avatar of the BZJ ambiguity.</p>
+    </section>
+    <section class="tj-step" data-scene="4">
+      <h2>5 · The integral is now exact</h2>
+      <p>With $\xi = e^{-\omega\theta}$ the shifted contour maps onto the positive real $\xi$-axis and the integrand becomes a pure exponential:</p>
+      <p>$$I_{\mathrm{QZM}} = \frac{e^{\pm i\pi}}{\omega}\int_0^\infty d\xi\, e^{-(8a^3/D)\,\xi} = \frac{e^{\pm i\pi}}{\omega}\Big(\frac{D}{8a^3}\Big)\,\Gamma(1).$$</p>
+      <p>The naive Gaussian around the same critical point gives the same answer multiplied by $\sqrt{2\pi}/e$ — the "peculiar error factor" of the older literature is nothing but Stirling's approximation to $\Gamma(1)$, sneaking in from a contour that was never the right one. The thimble removes it exactly, and Kramers' prefactor comes out correct.</p>
+    </section>
+  </div>
+</div>
+
+<style>
+.tj { margin: 2rem 0 3rem; --tj-bg: #000; --tj-axis: #e8e6e0; --tj-dim: rgba(232,230,224,.35); --tj-J: #ffb15c; --tj-K: #4fd3e8; --tj-hot: #ff7a3d; --tj-cold: #1b6f8a; --tj-green: #7bf29a; --tj-sheet: rgba(120,170,255,.28); --tj-sheetline: rgba(150,190,255,.6); }
+.tj-stage { position: sticky; top: 0; z-index: 1; background: var(--tj-bg); border-radius: 0 0 12px 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
+.tj-canvas { display: block; width: 100%; height: 54vh; }
+.tj-overlay { position: absolute; left: 1rem; top: .8rem; display: flex; gap: .7rem; align-items: baseline; pointer-events: none; }
+.tj-act { font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; color: rgba(232,230,224,.55); }
+.tj-title { font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--tj-axis); }
+.tj-steps { position: relative; z-index: 0; }
+.tj-step { min-height: 46vh; padding: 1.5rem 0 3rem; }
+.tj-step h2 { margin-top: 0; }
+.tj-step:first-child { padding-top: 2rem; }
+.tj-step:last-child { min-height: 46vh; padding-bottom: 20vh; }
+@media (max-width: 640px) { .tj-canvas { height: 46vh; } .tj-step { min-height: 54vh; } }
+</style>
+
+<script>
+(function () {
+  const root = document.getElementById('tj'); if (!root) return;
+  const canvas = root.querySelector('.tj-canvas'), stage = root.querySelector('.tj-stage');
+  const actEl = root.querySelector('.tj-act'), titleEl = root.querySelector('.tj-title');
+  const steps = Array.from(root.querySelectorAll('.tj-step'));
+  const css = getComputedStyle(root), C = n => css.getPropertyValue(n).trim();
+  const col = { axis: C('--tj-axis'), dim: C('--tj-dim'), J: C('--tj-J'), K: C('--tj-K'), hot: C('--tj-hot'), cold: C('--tj-cold'), green: C('--tj-green'), sheet: C('--tj-sheet'), sheetline: C('--tj-sheetline') };
+  const titles = ['Steepest descent in one variable', 'The thimble as a manifold of paths', 'Slicing along the quasi-zero mode', 'The θ-plane: contour off the real line', 'An exact one-dimensional integral'];
+
+  // ---------- generic helpers
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+  const ease = t => t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2;
+  const seg = (p, a, b) => clamp((p - a) / (b - a), 0, 1);
+  const font = (size, italic) => (italic ? 'italic ' : '') + size + 'px Newsreader, Georgia, serif';
+  function text(g, s, x, y, color, align, size, italic) { g.fillStyle = color; g.font = font(size || 13, italic !== false); g.textAlign = align || 'left'; g.textBaseline = 'middle'; g.fillText(s, x, y); }
+  function arrow(g, x1, y1, x2, y2, color, w) {
+    const ang = Math.atan2(y2 - y1, x2 - x1), L = 7;
+    g.strokeStyle = color; g.fillStyle = color; g.lineWidth = w || 1.3; g.beginPath(); g.moveTo(x1, y1); g.lineTo(x2, y2); g.stroke();
+    g.beginPath(); g.moveTo(x2, y2); g.lineTo(x2 - L*Math.cos(ang - .4), y2 - L*Math.sin(ang - .4)); g.lineTo(x2 - L*Math.cos(ang + .4), y2 - L*Math.sin(ang + .4)); g.closePath(); g.fill();
+  }
+  function polyline(g, pts, color, w, alpha, dash) {
+    if (pts.length < 2) return; g.save(); g.globalAlpha = alpha == null ? 1 : alpha; g.strokeStyle = color; g.lineWidth = w; g.lineJoin = 'round'; g.lineCap = 'round'; if (dash) g.setLineDash(dash);
+    g.beginPath(); pts.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.stroke(); g.restore();
+  }
+  function arrowsAlong(g, pts, color, every, size) { // small arrowheads along a polyline
+    for (let i = every; i < pts.length - 1; i += every) {
+      const p = pts[i-1], q = pts[i+1], ang = Math.atan2(q[1]-p[1], q[0]-p[0]), L = size || 6;
+      g.fillStyle = color; g.beginPath(); g.moveTo(pts[i][0], pts[i][1]); g.lineTo(pts[i][0] - L*Math.cos(ang - .45), pts[i][1] - L*Math.sin(ang - .45)); g.lineTo(pts[i][0] - L*Math.cos(ang + .45), pts[i][1] - L*Math.sin(ang + .45)); g.closePath(); g.fill();
+    }
+  }
+  // complex arithmetic on [re, im]
+  const cm = (p, q) => [p[0]*q[0] - p[1]*q[1], p[0]*q[1] + p[1]*q[0]];
+  const cexp = p => [Math.exp(p[0])*Math.cos(p[1]), Math.exp(p[0])*Math.sin(p[1])];
+  const conj = p => [p[0], -p[1]];
+  // flow line: dz/du = dir * conj(f'(z)), from z0, until leaving box or step count
+  function flow(fprime, z0, dir, box, steps, du) {
+    const pts = [z0.slice()]; let z = z0.slice();
+    for (let i = 0; i < steps; i++) {
+      const k = s => { const d = conj(fprime(s)); return [dir*d[0], dir*d[1]]; };
+      const k1 = k(z), z2 = [z[0] + du/2*k1[0], z[1] + du/2*k1[1]], k2 = k(z2), z3 = [z[0] + du/2*k2[0], z[1] + du/2*k2[1]], k3 = k(z3), z4 = [z[0] + du*k3[0], z[1] + du*k3[1]], k4 = k(z4);
+      z = [z[0] + du/6*(k1[0] + 2*k2[0] + 2*k3[0] + k4[0]), z[1] + du/6*(k1[1] + 2*k2[1] + 2*k3[1] + k4[1])];
+      const sp = Math.hypot(k1[0], k1[1]); if (sp > 200) break;        // adaptive-ish: stop on blow-up
+      pts.push(z.slice());
+      if (z[0] < box[0] || z[0] > box[1] || z[1] < box[2] || z[1] > box[3]) break;
+    }
+    return pts;
+  }
+
+  // ---------- ACT 1: one variable.  S(z) = z^3/3 - λ z,  λ = e^{iπ/5}
+  const lam = [Math.cos(Math.PI/5), Math.sin(Math.PI/5)];
+  const S1 = z => { const z3 = cm(cm(z, z), z); const lz = cm(lam, z); return [z3[0]/3 - lz[0], z3[1]/3 - lz[1]]; };
+  const S1p = z => { const z2 = cm(z, z); return [z2[0] - lam[0], z2[1] - lam[1]]; };
+  const csqrt = p => { const r = Math.hypot(p[0], p[1]), a = Math.atan2(p[1], p[0]); return [Math.sqrt(r)*Math.cos(a/2), Math.sqrt(r)*Math.sin(a/2)]; };
+  const zs = csqrt(lam); const zsig = [-zs[0], -zs[1]];                 // the saddle we draw
+  const box1 = [-2.6, 2.6, -1.9, 1.9];
+  let act1 = null;
+  function buildAct1() {
+    const eps = 0.012, fpp = cm([2, 0], zsig);                           // S'' = 2 z_sigma
+    const dJ = csqrt([fpp[0]/(fpp[0]*fpp[0] + fpp[1]*fpp[1]), -fpp[1]/(fpp[0]*fpp[0] + fpp[1]*fpp[1])]);  // (S'')^{-1/2}: S'' v^2 real > 0
+    const dK = [-dJ[1], dJ[0]];
+    const mk = (d, dir) => flow(S1p, [zsig[0] + eps*d[0], zsig[1] + eps*d[1]], dir, box1, 4000, 0.004);
+    const J = mk(dJ, 1), J2 = mk([-dJ[0], -dJ[1]], 1), K = mk(dK, -1), K2 = mk([-dK[0], -dK[1]], -1);
+    // nearby flow lines (illustrating the field): start on a small circle, flow outward (dir +1)
+    const lines = [];
+    for (let k = 0; k < 14; k++) { const a = 2*Math.PI*k/14 + 0.1; lines.push(flow(S1p, [zsig[0] + 0.06*Math.cos(a), zsig[1] + 0.06*Math.sin(a)], 1, box1, 1500, 0.004)); }
+    // heat: Re S
+    act1 = { J: J2.slice().reverse().concat(J), K: K2.slice().reverse().concat(K), lines };
+  }
+  function heatCanvas(W, H, box, fn, scale) {
+    const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'), img = g.createImageData(W, H);
+    for (let j = 0; j < H; j++) for (let i = 0; i < W; i++) {
+      const x = box[0] + (box[1]-box[0])*(i + .5)/W, y = box[3] - (box[3]-box[2])*(j + .5)/H;
+      const v = Math.tanh(fn(x, y) / scale);                               // -1..1
+      const k = 4*(j*W + i);
+      if (v > 0) { img.data[k] = 255*Math.min(1, .25 + .9*v); img.data[k+1] = 90 + 110*v; img.data[k+2] = 40 + 30*v; img.data[k+3] = 255*(.12 + .55*v); }
+      else { const u = -v; img.data[k] = 20; img.data[k+1] = 90 + 60*u; img.data[k+2] = 120 + 110*u; img.data[k+3] = 255*(.12 + .45*u); }
+    }
+    g.putImageData(img, 0, 0); return c;
+  }
+  let heat1 = null;
+  function drawAct1(g, w, h, p) {
+    if (!act1) { buildAct1(); heat1 = heatCanvas(260, 190, box1, (x, y) => -S1([x, y])[0], 1.6); }   // bright = integrand large
+    const pad = 36, X = x => pad + (x - box1[0])/(box1[1]-box1[0])*(w - 2*pad), Y = y => h - pad - (y - box1[2])/(box1[3]-box1[2])*(h - 2*pad);
+    const P = pts => pts.map(q => [X(q[0]), Y(q[1])]);
+    g.save(); g.globalAlpha = .6; g.imageSmoothingEnabled = true; g.drawImage(heat1, X(box1[0]), Y(box1[3]), X(box1[1]) - X(box1[0]), Y(box1[2]) - Y(box1[3])); g.restore();
+    // axes
+    g.strokeStyle = col.dim; g.lineWidth = 1; g.beginPath(); g.moveTo(X(box1[0]), Y(0)); g.lineTo(X(box1[1]), Y(0)); g.moveTo(X(0), Y(box1[2])); g.lineTo(X(0), Y(box1[3])); g.stroke();
+    text(g, 'Re z', X(box1[1]) - 4, Y(0) - 10, col.dim, 'right', 13); text(g, 'Im z', X(0) + 8, Y(box1[3]) + 8, col.dim, 'left', 13);
+    // flow lines grow with p
+    const grow = seg(p, 0.05, 0.6);
+    act1.lines.forEach(L => { const n = Math.max(2, Math.floor(L.length*grow)); const pts = P(L.slice(0, n)); polyline(g, pts, col.axis, .9, .6); if (grow > .3) arrowsAlong(g, pts, col.axis, 160, 5); });
+    // dual thimble then thimble
+    const kK = seg(p, 0.25, 0.75), kJ = seg(p, 0.35, 0.9);
+    const half = (L, f) => { const m = Math.floor(L.length/2), n = Math.floor(m*f); return L.slice(m - n, m + n + 1); };
+    polyline(g, P(half(act1.K, kK)), col.K, 1.6, .9, [5, 5]);
+    polyline(g, P(half(act1.J, kJ)), col.J, 2.6, 1);
+    // saddle
+    g.fillStyle = col.axis; g.beginPath(); g.arc(X(zsig[0]), Y(zsig[1]), 4, 0, 2*Math.PI); g.fill();
+    text(g, 'z', X(zsig[0]) - 10, Y(zsig[1]) + 16, col.axis, 'right', 15); text(g, 'σ', X(zsig[0]) - 2, Y(zsig[1]) + 20, col.axis, 'right', 10);
+    if (kJ > .6) { const q = act1.J[Math.floor(act1.J.length*0.85)]; text(g, '𝒥σ  thimble: Im S const, Re S ↑', X(q[0]) + 10, Y(q[1]), col.J, 'left', 14); }
+    if (kK > .6) { const q = act1.K[Math.floor(act1.K.length*0.1)]; text(g, '𝒦σ  dual thimble', X(q[0]) - 10, Y(q[1]) , col.K, 'right', 14); }
+    text(g, 'bright: |e^{−S/4D}| large   ·   dark: small', w - 14, h - 14, col.dim, 'right', 12);
+  }
+
+  // ---------- ACT 2 & 3: the sheet in function space (stylised), then the cut
+  const SH = { U: 2.3, V: 1.35, alpha: 0.16, beta: 0.55 };
+  const hS = (u, v) => SH.alpha*u*u + SH.beta*v*v;
+  let act2 = null;
+  function buildAct2() {
+    const lines = [];
+    for (let k = 0; k < 36; k++) {
+      const a = 2*Math.PI*k/36 + 0.03; let u = 0.12*Math.cos(a), v = 0.05*Math.sin(a); const pts = [[0, 0], [u, v]];
+      for (let i = 0; i < 1200; i++) { const gu = 2*SH.alpha*u, gv = 2*SH.beta*v, n = Math.hypot(gu, gv) || 1; u += 0.02*gu/n; v += 0.02*gv/n; if (Math.abs(u) > SH.U || Math.abs(v) > SH.V) break; pts.push([u, v]); }
+      lines.push(pts);
+    }
+    act2 = { lines };
+  }
+  function camera(w, h, yaw, pitch, zoom, hScale, lift) {
+    const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+    const s = Math.min(w, h) * zoom;
+    return (u, v, z) => {
+      z = z*hScale + lift;
+      const x1 = u*cy - v*sy, y1 = u*sy + v*cy;                    // rotate in plane
+      const y2 = y1*cp + z*sp, z2 = -y1*sp + z*cp;                  // tilt
+      const persp = 1/(1 + 0.12*z2);
+      return [w/2 + x1*s*persp, h/2 + 0.1*h - y2*s*persp];
+    };
+  }
+  function drawSheet(g, w, h, opts) {
+    if (!act2) buildAct2();
+    const { yaw, pitch, hScale, cutW, cutA, fadeOut, lift, zoom, labels, flowA } = opts;
+    const prj = camera(w, h, yaw, pitch, zoom, hScale, lift);
+    const inStrip = v => Math.abs(v) <= cutW;
+    const alphaFor = v => inStrip(v) ? 1 : 1 - fadeOut;
+    // sheet fill (strip region drawn separately to allow fade)
+    const fillRegion = (v0, v1, color, a) => {
+      if (a <= 0.002) return; g.save(); g.globalAlpha = a; g.fillStyle = color; g.beginPath();
+      const N = 40; for (let i = 0; i <= N; i++) { const u = -SH.U + 2*SH.U*i/N; const q = prj(u, v0, hS(u, v0)); i ? g.lineTo(q[0], q[1]) : g.moveTo(q[0], q[1]); }
+      for (let i = N; i >= 0; i--) { const u = -SH.U + 2*SH.U*i/N; const q = prj(u, v1, hS(u, v1)); g.lineTo(q[0], q[1]); }
+      g.closePath(); g.fill(); g.restore();
+    };
+    fillRegion(-SH.V, -cutW, col.sheet, 1 - fadeOut); fillRegion(cutW, SH.V, col.sheet, 1 - fadeOut);
+    fillRegion(-cutW, cutW, col.sheet, 1);
+    // grid lines
+    g.lineWidth = .7;
+    for (let k = -6; k <= 6; k++) { const v = SH.V*k/6, a = alphaFor(v); if (a < .01) continue; const pts = []; for (let i = 0; i <= 50; i++) { const u = -SH.U + 2*SH.U*i/50; pts.push(prj(u, v, hS(u, v))); } polyline(g, pts, col.sheetline, .7, .55*a); }
+    for (let k = -10; k <= 10; k++) { const u = SH.U*k/10; const pts = []; for (let i = 0; i <= 50; i++) { const v = -SH.V + 2*SH.V*i/50; pts.push(prj(u, v, hS(u, v))); }
+      // split by strip to fade
+      const inside = [], outside = [];
+      for (let i = 0; i <= 50; i++) { const v = -SH.V + 2*SH.V*i/50; (inStrip(v) ? inside : outside).push([pts[i], v]); }
+      polyline(g, pts, col.sheetline, .7, .55*(1 - fadeOut)); if (fadeOut > 0) polyline(g, inside.map(q => q[0]), col.sheetline, .7, .55);
+    }
+    // flow lines with arrows
+    act2.lines.forEach(L => {
+      const pts = [], ptsIn = [];
+      L.forEach(q => { const pt = prj(q[0], q[1], hS(q[0], q[1])); pts.push(pt); if (inStrip(q[1])) ptsIn.push(pt); });
+      polyline(g, pts, col.axis, .9, .42*flowA*(1 - fadeOut)); if (fadeOut > 0) polyline(g, ptsIn, col.axis, .9, .42*flowA);
+      if (fadeOut < .5 && pts.length > 60) arrowsAlong(g, pts, 'rgba(232,230,224,' + (.55*flowA*(1 - fadeOut)) + ')', 45, 6);
+    });
+    // QZM line and EZM marker
+    const q0 = prj(0, 0, 0), qU1 = prj(SH.U, 0, hS(SH.U, 0)), qU0 = prj(-SH.U, 0, hS(-SH.U, 0)), qV1 = prj(0, SH.V, hS(0, SH.V));
+    polyline(g, [qU0, q0, qU1], col.J, 2.2, 1);
+    g.fillStyle = col.axis; g.beginPath(); g.arc(q0[0], q0[1], 4.5, 0, 2*Math.PI); g.fill();
+    if (labels > 0) {
+      g.save(); g.globalAlpha = labels;
+      text(g, 'zσ = the complex bounce', q0[0] + 12, q0[1] + 18, col.axis, 'left', 14);
+      text(g, 'QZM direction θ', qU1[0] - 6, qU1[1] - 14, col.J, 'right', 14);
+      text(g, 'Gaussian modes (steep)', qV1[0] + 8, qV1[1], col.sheetline, 'left', 13);
+      arrow(g, q0[0] - 70, q0[1] + 30, q0[0] - 150, q0[1] + 30, col.green, 1.4); text(g, 'EZM: t_c (exactly flat, ∫ dt_c over ℝ)', q0[0] - 70, q0[1] + 48, col.green, 'right', 13);
+      text(g, 'h = Re 𝒮/4D rises along every flow line; Im 𝒮 is constant', w - 14, h - 14, col.dim, 'right', 12);
+      g.restore();
+    }
+    if (cutA > 0) {   // cutting slab outline
+      g.save(); g.globalAlpha = cutA; g.strokeStyle = col.hot; g.setLineDash([6, 5]); g.lineWidth = 1.4;
+      [-cutW, cutW].forEach(v => { const pts = []; for (let i = 0; i <= 30; i++) { const u = -SH.U - .15 + (2*SH.U + .3)*i/30; pts.push(prj(u, v, hS(u, v) + .02)); } polyline(g, pts, col.hot, 1.4, cutA, [6, 5]); });
+      text(g, 'cut here: keep only the θ line', prj(-SH.U, cutW, 0)[0], prj(-SH.U, cutW, 0)[1] - 16, col.hot, 'left', 13);
+      g.restore();
+    }
+  }
+  function drawAct2(g, w, h, p) {
+    const yaw = -0.55 + 0.25*Math.sin(p*Math.PI), pitch = 0.75;
+    drawSheet(g, w, h, { yaw, pitch, hScale: lerp(0, 0.5, seg(p, 0, .35)), cutW: 0.14, cutA: 0, fadeOut: 0, lift: 0, zoom: 0.21, labels: seg(p, .3, .6), flowA: seg(p, .1, .5) });
+  }
+  function drawAct3(g, w, h, p) {
+    const cutA = seg(p, 0.02, 0.25)*(1 - seg(p, .65, .85)), fadeOut = ease(seg(p, 0.28, 0.6));
+    const flat = ease(seg(p, 0.55, 1));
+    const yaw = lerp(-0.55, 0, flat), pitch = lerp(0.75, Math.PI/2, flat), hScale = lerp(0.5, 0, flat);
+    drawSheet(g, w, h, { yaw, pitch, hScale, cutW: 0.14, cutA, fadeOut, lift: 0, zoom: lerp(0.21, 0.19, flat), labels: 1 - seg(p, .25, .45), flowA: 1 });
+    if (flat > .5) { g.save(); g.globalAlpha = seg(p, .75, 1); text(g, 'the θ line, flattened → a contour in the complex θ-plane', w/2, h/2 + 40, col.J, 'center', 15); g.restore(); }
+  }
+
+  // ---------- ACT 4: θ-plane.  f(θ) = V/4D = ω θ − c e^{−ω θ}, ω=1, c=e^4 ; regulator ν rotates f by e^{iν}
+  const om = 1, lnc = 4, c = Math.exp(lnc), nu = 0.12;
+  const box4 = [-1.6, 7.6, -7.0, 7.0];
+  const fTh = th => { const e = cexp([-om*th[0], -om*th[1]]); const f = [om*th[0] - c*e[0], om*th[1] - c*e[1]]; return cm([Math.cos(nu), Math.sin(nu)], f); };
+  const fThp = th => { const e = cexp([-om*th[0], -om*th[1]]); const d = [om + om*c*e[0], om*c*e[1]]; return cm([Math.cos(nu), Math.sin(nu)], d); };
+  let act4 = null, heat4 = null;
+  function buildAct4() {
+    const crit = [[lnc/om, Math.PI/om], [lnc/om, -Math.PI/om]];
+    const dir = [Math.cos(-nu/2), Math.sin(-nu/2)], dirK = [-dir[1], dir[0]], eps = 0.01;
+    const mk = (z, d, s) => flow(fThp, [z[0] + eps*d[0], z[1] + eps*d[1]], s, box4, 60000, 0.0015);
+    const J = crit.map(z => mk(z, [-dir[0], -dir[1]], 1).reverse().concat(mk(z, dir, 1)));
+    const K = crit.map(z => mk(z, [-dirK[0], -dirK[1]], -1).reverse().concat(mk(z, dirK, -1)));
+    // where does K_1 cross the real axis?
+    let cross = null; for (const Kc of K) for (let i = 1; i < Kc.length; i++) if (Kc[i-1][1]*Kc[i][1] < 0) { cross = [Kc[i][0], 0]; }
+    act4 = { crit, J, K, cross };
+    heat4 = heatCanvas(300, 420, box4, (x, y) => -fTh([x, y])[0], 8);
+  }
+  function drawAct4(g, w, h, p) {
+    if (!act4) buildAct4();
+    const pad = 36, X = x => pad + (x - box4[0])/(box4[1]-box4[0])*(w - 2*pad), Y = y => h - pad - (y - box4[2])/(box4[3]-box4[2])*(h - 2*pad);
+    const P = pts => pts.map(q => [X(q[0]), Y(q[1])]);
+    g.save(); g.globalAlpha = .7*seg(p, 0, .3); g.drawImage(heat4, X(box4[0]), Y(box4[3]), X(box4[1]) - X(box4[0]), Y(box4[2]) - Y(box4[3])); g.restore();
+    g.strokeStyle = col.dim; g.lineWidth = 1; g.beginPath(); g.moveTo(X(box4[0]), Y(0)); g.lineTo(X(box4[1]), Y(0)); g.moveTo(X(0), Y(box4[2])); g.lineTo(X(0), Y(box4[3])); g.stroke();
+    text(g, 'Re θ', X(box4[1]) - 4, Y(0) + 12, col.dim, 'right', 13); text(g, 'Im θ', X(0) + 8, Y(box4[3]) + 8, col.dim, 'left', 13);
+    [Math.PI, -Math.PI].forEach(y => { g.strokeStyle = col.dim; g.setLineDash([2, 4]); g.beginPath(); g.moveTo(X(box4[0]), Y(y)); g.lineTo(X(box4[1]), Y(y)); g.stroke(); g.setLineDash([]); text(g, (y > 0 ? '+' : '−') + 'iπ/ω', X(0) - 6, Y(y), col.dim, 'right', 12); });
+    // dual thimbles
+    const kK = seg(p, .25, .6);
+    act4.K.forEach((Kc, i) => { const m = Math.floor(Kc.length/2), n = Math.floor(m*kK); polyline(g, P(Kc.slice(m - n, m + n + 1)), col.K, 1.5, .9, [5, 5]); });
+    // thimbles J (the shifted lines)
+    const kJ = seg(p, .15, .5);
+    act4.J.forEach((Jc, i) => { const m = Math.floor(Jc.length/2), n = Math.floor(m*kJ); polyline(g, P(Jc.slice(m - n, m + n + 1)), col.J, i === 0 ? 2.6 : 1.4, i === 0 ? 1 : .5); });
+    // critical points
+    act4.crit.forEach((z, i) => { g.fillStyle = col.green; g.beginPath(); g.arc(X(z[0]), Y(z[1]), 4.5, 0, 2*Math.PI); g.fill(); text(g, i === 0 ? 'θ₁*' : 'θ₀*', X(z[0]) + 10, Y(z[1]) - 12, col.green, 'left', 14); });
+    text(g, 'Re θ* = (1/ω) log(8a³/D)', X(act4.crit[0][0]), Y(0) - 14, col.green, 'center', 12);
+    g.strokeStyle = col.green; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(act4.crit[0][0]), Y(-.25)); g.lineTo(X(act4.crit[0][0]), Y(.25)); g.stroke(); g.setLineDash([]);
+    // the contour: real axis lifting to J_1
+    const lift = ease(seg(p, .55, .95));
+    const pts = []; for (let i = 0; i <= 80; i++) { const x = box4[0] + (box4[1]-box4[0])*i/80; pts.push([X(x), Y(lift*Math.PI)]); }
+    polyline(g, pts, col.axis, 2.4, 1); arrowsAlong(g, pts, col.axis, 20, 7);
+    text(g, lift < .5 ? 'C_ℝ : the real contour (divergent as θ → −∞)' : 'C_ℝ ≃ 𝒥₁ = ℝ + iπ/ω  (n₁ = 1, n₀ = 0)', X(box4[0]) + 8, Y(lift*Math.PI) - 14, col.axis, 'left', 14);
+    if (act4.cross && kK > .9) { g.strokeStyle = col.K; g.lineWidth = 1.5; g.beginPath(); g.arc(X(act4.cross[0]), Y(0), 6, 0, 2*Math.PI); g.stroke(); text(g, 'C_ℝ ∩ 𝒦₁ : one crossing', X(act4.cross[0]) + 10, Y(0) + 14, col.K, 'left', 12); }
+    text(g, 'bright: integrand blows up (IA attraction)   ·   dark: decays', w - 14, h - 14, col.dim, 'right', 12);
+    text(g, 'regulator ν → 0⁺ picks 𝒥₁; ν → 0⁻ would pick 𝒥₀', 14, h - 14, col.dim, 'left', 12);
+  }
+
+  // ---------- ACT 5: the integrand along J_1 vs the Gaussian about θ*
+  function drawAct5(g, w, h, p) {
+    const x0 = 0.5, x1 = 8.5, pad = 46, X = x => pad + (x - x0)/(x1 - x0)*(w - 2*pad);
+    const f = x => Math.exp(-(x - lnc) - Math.exp(-(x - lnc)));             // Gumbel: e^{-ω(θ-θ*)} e^{-e^{-ω(θ-θ*)}}, peak e^{-1}
+    const gss = x => Math.exp(-1)*Math.exp(-(x - lnc)*(x - lnc)/2);
+    const ymax = .45, Y = y => h - pad - y/ymax*(h - 2*pad);
+    g.strokeStyle = col.dim; g.lineWidth = 1; g.beginPath(); g.moveTo(X(x0), Y(0)); g.lineTo(X(x1), Y(0)); g.stroke();
+    text(g, 'Re θ  (along 𝒥₁)', X(x1) - 4, Y(0) + 14, col.dim, 'right', 13);
+    const a1 = seg(p, 0, .4), a2 = seg(p, .35, .8);
+    const area = (fn, color, alpha) => { g.save(); g.globalAlpha = alpha; g.fillStyle = color; g.beginPath(); g.moveTo(X(x0), Y(0)); for (let i = 0; i <= 200; i++) { const x = x0 + (x1-x0)*i/200; g.lineTo(X(x), Y(fn(x))); } g.lineTo(X(x1), Y(0)); g.closePath(); g.fill(); g.restore(); };
+    const curve = (fn, color, wdt, alpha, dash) => { const pts = []; for (let i = 0; i <= 200; i++) { const x = x0 + (x1-x0)*i/200; pts.push([X(x), Y(fn(x))]); } polyline(g, pts, color, wdt, alpha, dash); };
+    area(f, col.J, .22*a1); curve(f, col.J, 2.6, a1);
+    area(gss, col.K, .15*a2); curve(gss, col.K, 1.6, a2, [5, 5]);
+    g.strokeStyle = col.green; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(lnc), Y(0)); g.lineTo(X(lnc), Y(f(lnc)) - 12); g.stroke(); g.setLineDash([]);
+    text(g, 'θ*', X(lnc), Y(f(lnc)) - 22, col.green, 'center', 14);
+    if (a1 > .6) text(g, 'exact: e^{−ωθ} e^{−c e^{−ωθ}}  →  ∫ = (1/ω)(D/8a³) Γ(1)', X(x0) + 6, Y(ymax*.92), col.J, 'left', 15);
+    if (a2 > .6) text(g, 'Gaussian about θ*  →  × √(2π)/e ≈ 0.922  (Stirling)', X(x0) + 6, Y(ymax*.80), col.K, 'left', 15);
+    if (a2 > .9) text(g, 'The thimble removes the “peculiar error factor” exactly.', w/2, h - 14, col.axis, 'center', 14);
+  }
+
+  // ---------- scheduler
+  let scene = 0, prog = 0, dirty = true;
+  function updateFromScroll() {
+    const vh = window.innerHeight, mid = vh*0.54 + (vh*0.46)*0.45;
+    let s = 0, pr = 0;
+    steps.forEach((el, i) => { const r = el.getBoundingClientRect(); if (r.top < mid) { s = i; pr = clamp((mid - r.top)/r.height, 0, 1); } });
+    if (s !== scene || Math.abs(pr - prog) > 0.002) { scene = s; prog = pr; dirty = true; }
+  }
+  function render() {
+    requestAnimationFrame(render);
+    if (!dirty) return; dirty = false;
+    const r = canvas.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    const W = Math.round(r.width*dpr), H = Math.round(r.height*dpr);
+    if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+    const g = canvas.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.fillStyle = '#000'; g.fillRect(0, 0, r.width, r.height);
+    actEl.textContent = 'ACT ' + (scene + 1) + ' / 5'; titleEl.textContent = titles[scene];
+    const w = r.width, h = r.height;
+    if (scene === 0) drawAct1(g, w, h, prog);
+    else if (scene === 1) drawAct2(g, w, h, prog);
+    else if (scene === 2) drawAct3(g, w, h, prog);
+    else if (scene === 3) drawAct4(g, w, h, prog);
+    else drawAct5(g, w, h, prog);
+  }
+  window.addEventListener('scroll', updateFromScroll, { passive: true });
+  window.addEventListener('resize', () => { dirty = true; updateFromScroll(); });
+  updateFromScroll(); requestAnimationFrame(render);
+})();
+</script>
