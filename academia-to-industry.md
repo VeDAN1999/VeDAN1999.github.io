@@ -8,7 +8,7 @@ permalink: /academia-to-industry/
 
 # From academia to the real world
 
-<p class="lede">I came to university planning to do a good BSc and go into tech or finance. I stayed nine years, left as a research fellow, and ended up somewhere I had never heard of.</p>
+<p class="lede">I came to university planning to do a good BSc and go into tech or finance. I stayed for over eight years, left as a research fellow, and ended up somewhere I had never heard of.</p>
 
 ## How I got here
 
