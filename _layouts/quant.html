@@ -1,0 +1,17 @@
+---
+layout: default
+math: true
+---
+<article class="post">
+  <header class="post-header">
+    <p class="eyebrow">Quant prep · {{ page.category }} · difficulty {{ page.difficulty }} / 5{% if page.tags and page.tags.size > 0 %} · {{ page.tags | join: ", " }}{% endif %}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.summary %}<p class="lede">{{ page.summary }}</p>{% endif %}
+  </header>
+  {{ content }}
+  <p class="post-source">
+    Script: <a href="{{ '/assets/quant/' | append: page.slug | append: '.py' | relative_url }}">assets/quant/{{ page.slug }}.py</a>
+    {% if page.source %} · Original: <a href="{{ page.source }}">{{ page.source | remove: 'https://' }}</a>{% endif %}
+  </p>
+</article>
+<p style="margin-top:3rem"><a href="/quant/">← All quant questions</a></p>

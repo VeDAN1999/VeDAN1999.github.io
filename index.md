@@ -51,6 +51,14 @@ This site collects my [research](/research/), a few [projects](/projects/) with 
   <p>What carries over from a PhD in path integrals to client work, what doesn't, and what I had to learn fast. An occasional, honest log of the move.</p>
 </div>
 
+## Quant prep
+
+<div class="entry">
+  <h3><a href="/quant/">Interview questions, solved and checked</a></h3>
+  <div class="meta">Probability · brainteasers · martingales · sizing · options · statistics</div>
+  <p>A growing bank of quant interview questions. Every one has a written solution and a short Python script that confirms the answer by exact computation or simulation.</p>
+</div>
+
 ## How to succeed at mathematics
 
 <div class="entry">

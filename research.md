@@ -30,6 +30,19 @@ The path integral gives a third route to stochastic processes alongside the Lang
   <div class="links"><a href="https://etheses.whiterose.ac.uk/id/eprint/38065/">White Rose eTheses</a><a href="https://etheses.whiterose.ac.uk/id/eprint/38065/1/Baldwin_DA_Mathematics_PhD_2025.pdf">PDF</a></div>
 </div>
 
+## Complex bounces, potential by potential {#bounces}
+
+The full calculations behind the paper and the thesis, one potential at a time: Itô action, effective potential, hilltop, turning points, closed-form saddles, and the small-$D$ structure, each checked numerically against the equation of motion. The sine-Gordon case is the surprising one: its complex bounce passes through infinity and is discontinuous in $x(t)$, and it is still the right saddle.
+
+{% assign bs = site.bounces | sort: "order" %}
+{% for b in bs %}
+<div class="entry">
+  <h3><a href="{{ b.url | relative_url }}">{{ b.title }}</a><span class="tag">{{ b.status }}</span></h3>
+  <div class="meta">{{ b.potential }}</div>
+  {% if b.summary %}<p>{{ b.summary }}</p>{% endif %}
+</div>
+{% endfor %}
+
 ## Background
 
 - PhD, Applied Mathematics, University of Leeds · Leeds Doctoral Scholarship, September 2021 to September 2025

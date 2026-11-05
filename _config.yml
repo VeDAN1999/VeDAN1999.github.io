@@ -31,3 +31,9 @@ collections:
   problems:
     output: true
     permalink: /maths/problems/:title/
+  quant:
+    output: true
+    permalink: /quant/:title/
+  bounces:
+    output: true
+    permalink: /research/bounces/:title/

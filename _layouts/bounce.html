@@ -1,0 +1,21 @@
+---
+layout: default
+math: true
+---
+<article class="post">
+  <header class="post-header">
+    <p class="eyebrow">Complex bounces · {{ page.potential }}{% if page.status %} · {{ page.status }}{% endif %}</p>
+    <h1>{{ page.title }}</h1>
+    {% if page.summary %}<p class="lede">{{ page.summary }}</p>{% endif %}
+  </header>
+  {{ content }}
+  {% if page.script %}
+  <p class="post-source">Numerical check: <a href="{{ page.script | relative_url }}">{{ page.script | remove_first: '/' }}</a></p>
+  {% endif %}
+</article>
+{% assign all = site.bounces | sort: "order" %}
+<p style="margin-top:3rem;font-size:.9rem;color:var(--muted)">
+This series:
+{% for b in all %}{% if b.url == page.url %}<strong>{{ b.short }}</strong>{% else %}<a href="{{ b.url | relative_url }}">{{ b.short }}</a>{% endif %}{% unless forloop.last %} · {% endunless %}{% endfor %}
+· <a href="/research/#bounces">back to Research</a>
+</p>
