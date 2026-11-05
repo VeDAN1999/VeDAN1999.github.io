@@ -51,4 +51,12 @@ This site collects my [research](/research/), a few [projects](/projects/) with 
   <p>What carries over from a PhD in path integrals to client work, what doesn't, and what I had to learn fast. An occasional, honest log of the move.</p>
 </div>
 
+## How to succeed at mathematics
+
+<div class="entry">
+  <h3><a href="/maths/">Resources and problems for students</a></h3>
+  <div class="meta">A-level · STEP · MAT · TMUA · first-year university</div>
+  <p>The sites and papers that got me from A-level to a PhD, and my own problems with honest difficulty ratings.</p>
+</div>
+
 <p style="margin-top:2rem">Find me on <a href="https://github.com/{{ site.github }}">GitHub</a>.</p>

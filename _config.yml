@@ -26,3 +26,8 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+
+collections:
+  problems:
+    output: true
+    permalink: /maths/problems/:title/
