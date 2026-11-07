@@ -115,7 +115,9 @@ so $\cos y$ has simple poles at two real times, and $y(t)$ itself goes to comple
 - For $-s_1 < t < s_1$: the square root is imaginary, $\cos y = i\mu$ with $\mu$ real, $\mu \ge \delta$. So $\mathrm{Re}\,y = \pi/2$: $\mathrm{Re}\,x = 2\pi a$, the path sits over the *barrier*, comes in from $+i\infty$, reaches the turning point $x_t = 2\pi a + 2i\sqrt{D/a}$ at $t = 0$, and goes back out to $+i\infty$ at $t = s_1$.
 - For $t > s_1$: back over the well, returning from $-i\infty$ to $x = 0$ as $t \to +\infty$.
 
-The real part of $x(t)$ is a step function: $0$, then $2\pi a$ for a time $2s_1 \sim \log(1/D)/\omega$, then $0$. That is the "discontinuous complex bounce". The conjugate path (the other sign of $t_0$, equivalently the other turning point) has the imaginary parts reversed.
+![The sine-Gordon complex bounce for four values of D: Re z steps between the well and the barrier, Im z has logarithmic spikes at the two jumps, and the path in the z-plane runs along the two vertical lines Re z = 0 and Re z = 2πa through infinity.](/assets/img/sg-complex-bounce.png)
+
+The real part of $x(t)$ is a step function: $0$, then $2\pi a$ for a time $2s_1 \sim \log(1/D)/\omega$, then $0$. The jump is exactly half a period of $V$, exactly $\pi$ in the angle $x/2a$, for every $D$: it is not a small-$D$ artefact. Which side of each pole the imaginary part spikes to is the choice of which side of the pole the $t$-contour passes, the same choice as the $\pm i\pi$ in the action below; the figure takes the branch with $\operatorname{Im} z \le 0$ throughout, as in the thesis. That is the "discontinuous complex bounce". The conjugate path (the other sign of $t_0$, equivalently the other turning point) has the imaginary parts reversed.
 
 **Why it is nonetheless correct.** Three observations.
 
@@ -164,7 +166,23 @@ $$
 
 (with $-HT$ dropped). The $D\log(1/D)$ term is the instanton–anti-instanton interaction; its coefficient is the one that becomes $\omega\theta$ in the quasi-zero-mode potential. Numerically, direct integration of $4\int\sqrt{E-\Phi}$ along a straight line from the well to the complex turning point reproduces $S_{\rm CB}$ to all printed digits, including the $4\pi D$, and the expansions are accurate to $O(D^3)$: the residual at $a=1$ falls from $10^{-3}$ at $D = 0.4$ to $2\times10^{-9}$ at $D = 0.005$.
 
-The fluctuation determinants, in the normalisation of the thesis, are $\mp D/512a^8$ at leading order: negative for the real bounce (one soft unstable mode) and positive for the complex bounce and the kink pair, with the complex-bounce value being the real-bounce one under $D \to -D$ once more.
+### The fluctuation determinants
+
+They are elementary too. The fluctuation operator about a saddle is $\hat{\mathcal M} = -d^2/dt^2 - \tfrac12\Phi''(x_{\rm cl})$, with the exact zero mode $\dot x_{\rm cl}$ removed and the result normalised by the free operator $-d^2/dt^2 + \omega_0^2$ at the hilltop. McKane and Tarlie's boundary-perturbation formula for the ratio of determinants, adapted to the stochastic action (which is four times the quantum one, hence a factor $-\tfrac14$), reduces in the $T \to \infty$ limit to
+
+$$
+\lim_{T\to\infty}\frac{1}{\langle\dot x_{\rm cl}|\dot x_{\rm cl}\rangle}\,\frac{\det{}'\hat{\mathcal M}}{\det\hat{\mathcal M}_0} = \frac{1}{2\omega_0\,\alpha_-\alpha_+}, \qquad \dot x_{\rm cl} \sim \alpha_-e^{\omega_0 t}\ (t\to-\infty), \quad \dot x_{\rm cl} \sim \alpha_+e^{-\omega_0 t}\ (t\to+\infty):
+$$
+
+only the asymptotic amplitudes of the zero mode are needed. For $x = 4a\arctan(A\cosh\omega t)$ the derivative is $4aA\omega\sinh\omega t/(1 + A^2\cosh^2\omega t)$, so $\alpha_\pm = \pm 8a\omega/A$ and $\alpha_-\alpha_+ = -64a^2\omega^2/A^2$; for the kink pair, with $\sinh$ in place of $\cosh$, the two amplitudes have the same sign. Putting in $A^2$ and $\omega^2$ from §5–§6 gives closed forms:
+
+$$
+\frac{1}{\langle\dot x|\dot x\rangle}\frac{\det{}'\hat{\mathcal M}}{\det\hat{\mathcal M}_0}
+= -\frac{D}{16\sqrt a\,(4a^3 - D)^{5/2}}\ \ \text{(real bounce)}, \qquad
+= +\frac{D}{16\sqrt a\,(4a^3 + D)^{5/2}}\ \ \text{(complex bounce and kink pair)},
+$$
+
+both $\mp D/512a^8 + O(D^2)$. The real bounce is negative because its zero mode changes sign, the signature of the single soft unstable direction; the complex bounce is the real bounce under $D \to -D$ once more, and positive, even though its operator is not Hermitian; the kink pair is positive because its zero mode does not change sign. The numbers from the master formula with the amplitudes read off the closed-form solutions agree with these expressions to all printed digits at $a = 1$, $D = 0.4$ and $D = 0.05$.
 
 ## 9. The quasi-zero mode: two potentials, two contours
 
