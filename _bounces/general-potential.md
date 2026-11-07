@@ -29,4 +29,4 @@ The point of doing it in general is twofold: to show that nothing in the resolut
 
 - Cubic: done.
 - Sine-Gordon: done, including the pole structure that a general periodic potential will share.
-- Quartic: in progress; needed because its closed form is elliptic, which is the first test of whether the perturbative method reproduces something non-elementary.
+- Quartic: done. Its closed form is elliptic, and it is the case with unequal well and barrier curvatures. It supplies the general statement that the valley slope is always the barrier curvature once the transverse one-loop measure is transported along the quasi-zero mode, so the thimble integral is always $\Gamma(1)$; see [the tilted quartic page](/research/bounces/quartic/), §9.
