@@ -166,6 +166,38 @@ $$
 
 The fluctuation determinants, in the normalisation of the thesis, are $\mp D/512a^8$ at leading order: negative for the real bounce (one soft unstable mode) and positive for the complex bounce and the kink pair, with the complex-bounce value being the real-bounce one under $D \to -D$ once more.
 
-## 9. Still to write up
+## 9. The quasi-zero mode: two potentials, two contours
 
-The quasi-zero-mode potential for the sine-Gordon kink–antikink interaction, the thimble through the complex saddle, and the resulting escape rate, with the comparison against the exact one-dimensional mean first-passage time. All of this is in the thesis; it will be transcribed here in the same style as the cubic.
+Promote the separation of the two kinks to a collective coordinate $\theta$. The action of a kink pair at separation $\theta$ is $S = 32a^3 + 4D + \mathcal V(\theta)$ with
+
+$$
+\mathcal V_\pm(\theta) = \pm\,64a^3\,e^{-\omega\theta} + 4D\omega\,\theta ,
+$$
+
+the upper sign for the kink–kink (II) configuration and the lower for the kink–antikink (IA). The $64a^3$ is four times the single-kink action $16a^3$, and the sign is the sign of the interaction: two kinks repel, a kink and an antikink attract. Both potentials can be checked against the exact actions of §8. For II, $\mathcal V_+' = 0$ gives $e^{-\omega\theta^*} = D/16a^3$, so $\theta^* = \omega^{-1}\log(16a^3/D) = 2\mu_{\rm II}$, and $\mathcal V_+(\theta^*) = 4D + 4D\log(16a^3/D)$, exactly the $O(D)$ terms of $S_{\rm II}$. For IA, $\mathcal V_-' = 0$ needs $e^{-\omega\theta^*} = -D/16a^3$: the critical points are complex, $\theta^* = \omega^{-1}\log(16a^3/D) \pm i\pi/\omega$, and $\mathcal V_-(\theta^*) = 4D + 4D\log(16a^3/D) \pm 4i\pi D$, exactly the $O(D)$ terms of $S_{\rm CB}$ including its imaginary part.
+
+The two sectors then differ in one place only. The II integrand
+
+$$
+e^{-\mathcal V_+/4D} = e^{-\omega\theta}\exp\!\Big(-\frac{16a^3}{D}\,e^{-\omega\theta}\Big)
+$$
+
+decays at both ends of the real $\theta$-axis, double-exponentially to the left and exponentially to the right, $\operatorname{Im}\mathcal V_+ = 0$ along it, and $\theta^*$ is a minimum. The real line is already the Lefschetz thimble. With $\xi = e^{-\omega\theta}$,
+
+$$
+I^{\rm II}_{\rm QZM} = \int_{\mathbb R} d\theta\, e^{-\mathcal V_+/4D} = \frac{1}{\omega}\int_0^\infty d\xi\, e^{-(16a^3/D)\,\xi} = \frac{1}{\omega}\,\frac{D}{16a^3}\,\Gamma(1),
+$$
+
+exact, with no Gaussian step and therefore no Stirling factor. Kramers' prefactor for hopping to the neighbouring well follows directly.
+
+The IA integrand is the same expression with the sign of the double exponential reversed, and it blows up as $\theta \to -\infty$ on the real line: this is the divergence that was once forced to converge by flipping $D \to -D$ by hand. The steepest-descent contours through the complex critical points are the lines $\mathbb R \pm i\pi/\omega$, on which $e^{-\omega\theta}$ changes sign, the integrand becomes the II one again, and
+
+$$
+I^{\rm IA}_{\rm QZM} = e^{\pm i\pi}\,\frac{1}{\omega}\,\frac{D}{16a^3}\,\Gamma(1).
+$$
+
+Which sign contributes is fixed by the intersection numbers of the real line with the two dual thimbles, exactly as in [the cubic](/thimble/); the magnitude is the same as in the II sector, and the phase $e^{\pm i\pi}$ is what makes the IA contribution imaginary. That imaginary part is the escape rate.
+
+## 10. Still to write up
+
+The fluctuation determinants in full, the assembled escape rate, and the comparison against the exact one-dimensional mean first-passage time. All of this is in the thesis; it will be transcribed here in the same style as the cubic.
