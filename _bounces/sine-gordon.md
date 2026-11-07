@@ -145,6 +145,27 @@ The discontinuity is a statement about the coordinate, not about the saddle. The
 | Complex bounce | bounded, smooth | through infinity, $\mathrm{Re}\,x$ discontinuous |
 | Separation | $\sim \omega^{-1}\ln(a^2/D)$ | $2s_1 = \omega^{-1}\ln(16a^3/D) + \dots$ |
 
-## 8. Still to write up
+## 8. The three actions
+
+With $S = 2\int \dot x^2\,dt - HT = 4\int \sqrt{E - \Phi(x)}\,dx - HT$ along the half-path, all three saddles integrate in closed form. Writing $\sigma_\pm = \sqrt{1 \pm \delta^2}$,
+
+$$
+S_{\rm CB} = -H_0 T + 32a^3\sigma_+ + 4D\log\frac{1+\sigma_+}{1-\sigma_+}, \qquad
+S_{\rm II} = -H_0 T + 32a^3\sigma_+ + 4D\log\frac{\sigma_+ + 1}{\sigma_+ - 1}, \qquad
+S_{\rm RB} = -H_2 T + 32a^3\sigma_- - 4D\log\frac{1+\sigma_-}{1-\sigma_-} .
+$$
+
+The complex-bounce logarithm has a negative argument, and that is the whole of its imaginary part: $S_{\rm II} = \operatorname{Re} S_{\rm CB}$ exactly, and $\operatorname{Im} S_{\rm CB} = \pm 4\pi D$, the sign fixed by the choice of turning point. The real-bounce action is $S_{\rm CB}$ with $D \to -D$, term by term. Expanding in $D$,
+
+$$
+S_{\rm CB} = 32a^3 + 4D \pm 4i\pi D + 4D\log\frac{16a^3}{D} + \frac{D^2}{4a^3} + O(D^3), \qquad
+S_{\rm RB} = 32a^3 - 4D - 4D\log\frac{16a^3}{D} + \frac{D^2}{4a^3} + O(D^3),
+$$
+
+(with $-HT$ dropped). The $D\log(1/D)$ term is the instanton–anti-instanton interaction; its coefficient is the one that becomes $\omega\theta$ in the quasi-zero-mode potential. Numerically, direct integration of $4\int\sqrt{E-\Phi}$ along a straight line from the well to the complex turning point reproduces $S_{\rm CB}$ to all printed digits, including the $4\pi D$, and the expansions are accurate to $O(D^3)$: the residual at $a=1$ falls from $10^{-3}$ at $D = 0.4$ to $2\times10^{-9}$ at $D = 0.005$.
+
+The fluctuation determinants, in the normalisation of the thesis, are $\mp D/512a^8$ at leading order: negative for the real bounce (one soft unstable mode) and positive for the complex bounce and the kink pair, with the complex-bounce value being the real-bounce one under $D \to -D$ once more.
+
+## 9. Still to write up
 
 The quasi-zero-mode potential for the sine-Gordon kink–antikink interaction, the thimble through the complex saddle, and the resulting escape rate, with the comparison against the exact one-dimensional mean first-passage time. All of this is in the thesis; it will be transcribed here in the same style as the cubic.
