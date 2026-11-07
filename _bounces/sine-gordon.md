@@ -196,7 +196,7 @@ $$
 I^{\rm IA}_{\rm QZM} = e^{\pm i\pi}\,\frac{1}{\omega}\,\frac{D}{16a^3}\,\Gamma(1).
 $$
 
-Which sign contributes is fixed by the intersection numbers of the real line with the two dual thimbles, exactly as in [the cubic](/thimble/); the magnitude is the same as in the II sector, and the phase $e^{\pm i\pi}$ is what makes the IA contribution imaginary. That imaginary part is the escape rate.
+Which sign contributes is fixed by the intersection numbers of the real line with the two dual thimbles, exactly as in [the cubic](/thimble/); the magnitude is the same as in the II sector. The phase $e^{\pm i\pi} = -1$ is not a sign that anything has gone wrong, and the rate is not imaginary. The IA sector enters the probability of still being in the well as $-\Gamma t$, and the $-1$ from the contour is precisely the minus sign in front of $\Gamma$: the kink–antikink pair *depletes* the well, and the thimble knows it. With both pieces in place the escape rate is real, positive, and exactly Kramers', with no error factor.
 
 ## 10. Still to write up
 
