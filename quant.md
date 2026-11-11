@@ -15,7 +15,7 @@ The format is deliberate. Every question gets three things: the answer, a deriva
 
 Sources are the usual ones: *Heard on the Street*, *A Practical Guide to Quantitative Finance Interviews*, *Fifty Challenging Problems in Probability*, past Jane Street and Optiver questions as reported on the forums, and problems I have been set. Where a question is a known classic I say so; the solutions are mine.
 
-{% assign daily = site.quant | where_exp: "q", "q.daily" | sort: "daily" | reverse %}
+{% assign daily = site.quant | where_exp: "q", "q.daily != nil" | sort: "daily" | reverse %}
 {% assign bank = site.quant | where_exp: "q", "q.daily == nil" %}
 {% if daily.size > 0 %}
 ## My daily quant training {#daily}
