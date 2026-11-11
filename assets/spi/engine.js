@@ -176,7 +176,7 @@
   Potential.prototype.stationaryPoints = function (xmin, xmax, n = 4000) {
     const pts = []; let xp = xmin, fp = this.real(xp)[1];
     for (let i = 1; i <= n; i++) {
-      const x = xmin + (xmax - xmin) * i / n, f = this.real(x)[1];
+      const x = xmin + (xmax - xmin) * (i - 0.381966) / n, f = this.real(x)[1];      // offset grid: never lands exactly on a root
       if (isFinite(f) && isFinite(fp) && fp * f < 0) {
         let a = xp, b = x, fa = fp;
         for (let it = 0; it < 80; it++) { const m = (a + b) / 2, fm = this.real(m)[1]; if (fa * fm <= 0) b = m; else { a = m; fa = fm; } }
@@ -197,7 +197,7 @@
     // derivatives of the (possibly mirrored) potential W(y) = V(sgn*y):  W^(k)(y) = sgn^k V^(k)(sgn y)
     this.d = (z) => { const v = pot.derivs(C.scale(z, sgn)); return v.map((c, k) => (k % 2 ? C.scale(c, sgn) : c)); };
     this.dr = (x) => this.d([x, 0]).map((c) => c[0]);
-    this.toUser = (z) => (typeof z === 'number' ? sgn * z : C.scale(z, sgn));
+    this.toUser = (z) => (typeof z === 'number' ? sgn * z : [sgn * z[0], z[1]]);      // mirror the real part only
     this.xR = sgn * xWell; this.xB = sgn * xBarrier;
     const dR = this.dr(this.xR), dB = this.dr(this.xB);
     this.kR = dR[2]; this.kB = -dB[2];
@@ -327,6 +327,41 @@
     T /= D;                                                             // in units of exp(dV/D)
     return { ratio: 1 / (T * this.kramers), xabs: this.toUser(xabs), xup: this.toUser(xup) };
   };
+  /** The bounce as a curve in the z-plane (user coordinates), for drawing.
+   *  Integrated backwards from the well tail, first along the real time axis. If that does not land on the turning
+   *  point the bounce is not a regular real-time path, and the contour through Im t = -pi/(2 kB) is used instead.
+   *  Returns { z: [[re, im], ...] from the hilltop to rho, t: [...], regular: bool, miss } for the + saddle. */
+  Escape.prototype.trajectory = function (D, nSteps = 2400) {
+    const s = this.saddle(D), a = s.a, Om = s.Om, Camp = s.C, rho = s.rho, w = this.xR - this.xB;
+    const b = this.U3([a, 0], D)[0] / (12 * Om * Om);
+    const eps = 1e-4 * w, tL = Math.log(C.abs(Camp) / eps) / Om;
+    const e0 = C.scale(Camp, Math.exp(-Om * tL)), e2 = C.mul(e0, e0);
+    const start = [C.sub([a, 0], C.add(e0, C.scale(e2, b))), C.add(C.scale(e0, Om), C.scale(e2, 2 * Om * b))];
+    const acc = (z) => { const d = this.d(z); return C.sub(C.mul(d[1], d[2]), C.scale(d[3], D)); };   // equation of motion
+    const run = (legs) => {
+      let z = start[0], v = start[1]; const zs = [z], ts = [[tL, 0]]; let t = [tL, 0], ok = true;
+      for (const [target, n] of legs) {
+        const dt = C.scale(C.sub(target, t), 1 / n);
+        for (let i = 0; i < n; i++) {
+          const k1z = v, k1v = acc(z);
+          const z2 = C.add(z, C.scale(C.mul(dt, k1z), 0.5)), v2 = C.add(v, C.scale(C.mul(dt, k1v), 0.5)), k2v = acc(z2);
+          const z3 = C.add(z, C.scale(C.mul(dt, v2), 0.5)), v3 = C.add(v, C.scale(C.mul(dt, k2v), 0.5)), k3v = acc(z3);
+          const z4 = C.add(z, C.mul(dt, v3)), v4 = C.add(v, C.mul(dt, k3v)), k4v = acc(z4);
+          z = C.add(z, C.scale(C.mul(dt, C.add(C.add(k1z, C.scale(v2, 2)), C.add(C.scale(v3, 2), v4))), 1 / 6));
+          v = C.add(v, C.scale(C.mul(dt, C.add(C.add(k1v, C.scale(k2v, 2)), C.add(C.scale(k3v, 2), k4v))), 1 / 6));
+          if (!isFinite(z[0]) || !isFinite(z[1]) || C.abs(z) > 1e3 * (1 + Math.abs(this.xR) + w)) { ok = false; break; }
+          zs.push(z); t = C.add(t, dt); ts.push(t);
+        }
+        if (!ok) break; t = target;
+      }
+      return { zs, ts, miss: ok ? C.abs(C.sub(z, rho)) : Infinity };
+    };
+    const tol = 2e-3 * (this.lam * Math.sqrt(D) + 1e-3 * w);
+    let r = run([[[0, 0], nSteps]]); const regular = r.miss < tol;
+    if (!regular) { const y = -Math.PI / (2 * this.kB); r = run([[[tL, y], nSteps / 4], [[0, y], nSteps], [[0, 0], nSteps / 4]]); }
+    return { z: r.zs.map((q) => this.toUser(q)), t: r.ts, regular, miss: r.miss, landed: r.miss < 20 * tol, tL, saddle: s };
+  };
+
   /** which saddles exist at noise D: the classification of turning points beside every other stationary point. */
   Escape.prototype.classify = function (D, stationary) {
     const ER = this.hilltop(D).E, out = [];

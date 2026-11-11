@@ -9,6 +9,17 @@ math: true
 
 <p class="lede">Code that goes with the maths. Everything here is on <a href="https://github.com/{{ site.github }}">GitHub</a>.</p>
 
+<div class="entry" id="path-integral-calculator">
+  <h3><a href="/calculator/">SPI-1: the stochastic path integral calculator</a><span class="tag">JavaScript</span></h3>
+  <div class="meta">Complex bounces · Kramers' rate from a path integral · exact MFPT · runs in the browser</div>
+  <figure>
+    <a href="/calculator/"><img src="/assets/img/spi_calculator.png" alt="A pocket-calculator style device whose screen shows an escape path looping through the complex plane, with a paper tape of results below"></a>
+    <figcaption>Type a potential $V(x)$, press $=$, and the screen shows the complex path that carries the escape rate. The paper tape rebuilds Kramers' formula from it, factor by factor.</figcaption>
+  </figure>
+  <p>A calculator for noise-driven escape. For any one-dimensional potential with a well and a barrier it finds the complex bounce of the Itô path integral, evaluates the one-loop fluctuation factor, and compares the result with Kramers' formula and with the exact rate from the mean first-passage time as the noise strength $D$ is turned up. It also tells you, hilltop by hilltop, whether the turning point is real or complex. The numerics are checked against a 30-digit reference on seven potentials.</p>
+  <div class="links"><a href="/calculator/">Open the calculator</a><a href="https://github.com/VeDAN1999/VeDAN1999.github.io/tree/main/assets/spi">Code</a></div>
+</div>
+
 <div class="entry" id="stochastic-escape-simulator">
   <h3><a href="https://github.com/VeDAN1999/Stochastic-Escape-Simulator">Stochastic Escape Simulator</a><span class="tag">Python</span></h3>
   <div class="meta">Euler–Maruyama · first-passage times · Kramers' rate · exact MFPT</div>

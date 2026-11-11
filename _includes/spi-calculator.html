@@ -1,0 +1,109 @@
+<div class="spi" id="spi">
+  <div class="spi-body">
+    <div class="spi-top">
+      <span class="spi-brand">SPI&#8209;1</span>
+      <span class="spi-sub">stochastic path integral calculator</span>
+      <span class="spi-solar" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </div>
+
+    <div class="spi-screen">
+      <div class="spi-status"><span class="spi-st-l"></span><span class="spi-st-r"></span></div>
+      <canvas class="spi-canvas" aria-label="Calculator display"></canvas>
+      <div class="spi-msg" role="status"></div>
+    </div>
+
+    <div class="spi-entry">
+      <label for="spi-v">V(x) =</label>
+      <input id="spi-v" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" value="x^4/4 - x^2/2 + 120/343*x">
+      <button type="button" class="spi-key spi-enter" data-act="enter">=</button>
+    </div>
+
+    <div class="spi-row spi-modes" role="tablist" aria-label="Display">
+      <button type="button" class="spi-key" data-mode="land">LANDSCAPE</button>
+      <button type="button" class="spi-key" data-mode="bounce">BOUNCE</button>
+      <button type="button" class="spi-key" data-mode="rate">RATE</button>
+    </div>
+
+    <div class="spi-dial">
+      <span class="spi-dl">NOISE</span>
+      <button type="button" class="spi-key spi-small" data-act="dminus" aria-label="Less noise">&divide;2</button>
+      <input class="spi-slider" type="range" min="-4" max="-0.5" step="0.01" value="-2" aria-label="Noise strength D over barrier height, log scale">
+      <button type="button" class="spi-key spi-small" data-act="dplus" aria-label="More noise">&times;2</button>
+      <span class="spi-dread"></span>
+    </div>
+
+    <div class="spi-row spi-wells" aria-label="Choose the well and the barrier"></div>
+
+    <div class="spi-row spi-presets" aria-label="Preset potentials">
+      <button type="button" class="spi-key spi-preset" data-preset="cubic">CUBIC</button>
+      <button type="button" class="spi-key spi-preset" data-preset="quartic">QUARTIC</button>
+      <button type="button" class="spi-key spi-preset" data-preset="sg">SINE&#8209;G</button>
+      <button type="button" class="spi-key spi-preset" data-preset="wiggly">WIGGLY</button>
+      <button type="button" class="spi-key spi-preset" data-preset="sextic">SEXTIC</button>
+      <button type="button" class="spi-key spi-preset" data-preset="steep">STEEP</button>
+    </div>
+    <div class="spi-row spi-toggles">
+      <label><input type="checkbox" data-curve="gauss"> Gaussian</label>
+      <label><input type="checkbox" data-curve="flat"> flat measure</label>
+      <label><input type="checkbox" data-curve="c1" checked> Kramers + first correction</label>
+    </div>
+  </div>
+
+  <div class="spi-tape" aria-live="polite"><div class="spi-tape-in"></div></div>
+</div>
+
+<style>
+.spi { margin: 1.5rem 0 2.5rem; --spi-lcd: #0c0f0b; --spi-lcd-ink: #d9f2c4; --spi-lcd-dim: #6f8a63; --spi-a: #ffa160; --spi-b: #5fd6e8; --spi-c: #c9a0ff; --spi-grid: rgba(217, 242, 196, .10);
+  --spi-case: #24221c; --spi-case-edge: #3a372e; --spi-key: #312e26; --spi-key-ink: #ece8df; --spi-key-on: #e0885b; --spi-paper: #f4f0e4; --spi-paper-ink: #2a2721; }
+:root[data-theme="light"] .spi { --spi-case: #e9e3d3; --spi-case-edge: #cfc7b3; --spi-key: #fbfaf7; --spi-key-ink: #1c1b18; --spi-key-on: #8a3b12; --spi-paper: #fffdf6; --spi-paper-ink: #2a2721; }
+.spi-body { background: var(--spi-case); border: 1px solid var(--spi-case-edge); border-radius: 22px; padding: 1rem 1rem 1.1rem; box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 18px 40px -22px rgba(0,0,0,.7); position: relative; z-index: 2; }
+.spi-top { display: flex; align-items: center; gap: .7rem; margin: 0 .2rem .7rem; }
+.spi-brand { font-family: var(--mono); font-weight: 700; letter-spacing: .08em; color: var(--spi-key-on); font-size: .95rem; }
+.spi-sub { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); flex: 1; }
+.spi-solar { display: flex; gap: 2px; padding: 3px; background: #15130f; border-radius: 4px; }
+.spi-solar i { width: 14px; height: 12px; background: linear-gradient(160deg, #4a3526, #241812); border-radius: 1px; }
+.spi-screen { background: var(--spi-lcd); border-radius: 12px; border: 3px solid #050604; box-shadow: 0 0 0 1px var(--spi-case-edge), inset 0 0 28px rgba(0,0,0,.8); overflow: hidden; position: relative; }
+.spi-status { display: flex; justify-content: space-between; gap: 1rem; font-family: var(--mono); font-size: .68rem; color: var(--spi-lcd-dim); padding: .45rem .7rem 0; white-space: nowrap; overflow: hidden; }
+.spi-st-l { overflow: hidden; text-overflow: ellipsis; }
+.spi-canvas { display: block; width: 100%; aspect-ratio: 16 / 10; }
+.spi-msg { padding: .1rem .7rem .55rem; font-family: var(--mono); font-size: .72rem; line-height: 1.45; color: var(--spi-lcd-ink); min-height: 2.75rem; }
+.spi-msg.err { color: #ff9a8a; }
+.spi-entry { display: flex; align-items: center; gap: .5rem; margin: .8rem 0 .6rem; }
+.spi-entry label { font-family: var(--serif); font-style: italic; font-size: 1.1rem; white-space: nowrap; color: var(--ink); }
+.spi-entry input { flex: 1; min-width: 0; font-family: var(--mono); font-size: .9rem; padding: .5rem .6rem; border-radius: 8px; border: 1px solid var(--spi-case-edge); background: var(--spi-lcd); color: var(--spi-lcd-ink); }
+.spi-entry input:focus { outline: 2px solid var(--spi-key-on); outline-offset: 1px; }
+.spi-row { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: .5rem; }
+.spi-key { font-family: var(--mono); font-size: .72rem; letter-spacing: .06em; padding: .55rem .7rem; border-radius: 9px; border: 1px solid var(--spi-case-edge); background: var(--spi-key); color: var(--spi-key-ink); cursor: pointer; box-shadow: 0 2px 0 var(--spi-case-edge); transition: transform .05s, box-shadow .05s; flex: 1 1 auto; text-align: center; }
+.spi-key:hover { border-color: var(--spi-key-on); }
+.spi-key:active, .spi-key.down { transform: translateY(2px); box-shadow: 0 0 0 var(--spi-case-edge); }
+.spi-key[aria-pressed="true"] { background: var(--spi-key-on); color: #15140f; border-color: var(--spi-key-on); }
+:root[data-theme="light"] .spi-key[aria-pressed="true"] { color: #fff; }
+.spi-key:focus-visible { outline: 2px solid var(--spi-key-on); outline-offset: 2px; }
+.spi-key:disabled { opacity: .35; cursor: default; }
+.spi-enter { flex: 0 0 3rem; font-size: 1rem; background: var(--spi-key-on); color: #15140f; border-color: var(--spi-key-on); }
+:root[data-theme="light"] .spi-enter { color: #fff; }
+.spi-small { flex: 0 0 auto; padding: .4rem .55rem; }
+.spi-dial { display: flex; align-items: center; gap: .5rem; margin-top: .7rem; }
+.spi-dl { font-size: .62rem; letter-spacing: .14em; color: var(--muted); }
+.spi-slider { flex: 1; min-width: 5rem; accent-color: var(--spi-key-on); }
+.spi-dread { font-family: var(--mono); font-size: .72rem; color: var(--ink); min-width: 9.5rem; text-align: right; white-space: nowrap; }
+.spi-wells .spi-key { flex: 0 1 auto; }
+.spi-wells .spi-wl { font-size: .62rem; letter-spacing: .14em; color: var(--muted); align-self: center; margin-right: .2rem; }
+.spi-toggles { font-size: .72rem; color: var(--muted); gap: .3rem 1rem; margin-top: .7rem; }
+.spi-toggles label { display: inline-flex; align-items: center; gap: .3rem; cursor: pointer; }
+.spi-toggles input { accent-color: var(--spi-key-on); }
+.spi-tape { margin: -14px auto 0; width: min(92%, 33rem); background: var(--spi-paper); color: var(--spi-paper-ink); font-family: var(--mono); font-size: .74rem; line-height: 1.55; padding: 1.6rem 1.1rem 1.3rem; position: relative; z-index: 1; box-shadow: 0 10px 24px -14px rgba(0,0,0,.6);
+  --z: 7px; -webkit-mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--z)) 100%; mask: conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% / calc(2 * var(--z)) 100%; }
+.spi-tape-in { white-space: pre-wrap; overflow-wrap: anywhere; }
+.spi-tape .h { font-weight: 700; letter-spacing: .08em; }
+.spi-tape .dim { opacity: .62; }
+.spi-tape .ok { color: #1c6b3a; font-weight: 700; }
+.spi-tape .warn { color: #9a3412; font-weight: 700; }
+.spi-tape .big { font-size: .92rem; font-weight: 700; }
+@media (max-width: 560px) { .spi-sub { display: none; } .spi-top { justify-content: space-between; } .spi-dial { flex-wrap: wrap; } .spi-dread { min-width: 0; flex-basis: 100%; text-align: left; } .spi-canvas { aspect-ratio: 4 / 3.4; } .spi-key { padding: .5rem .5rem; } .spi-msg { min-height: 4.2rem; }
+  .spi-tape { width: 96%; font-size: .6rem; padding: 1.5rem .7rem 1.2rem; } .spi-tape .big { font-size: .7rem; } .spi-tape-in { white-space: pre; overflow-x: auto; } }
+@media (prefers-reduced-motion: reduce) { .spi-key { transition: none; } }
+</style>
+
+<script src="{{ '/assets/spi/engine.js' | relative_url }}"></script>
+<script src="{{ '/assets/spi/calculator.js' | relative_url }}"></script>
